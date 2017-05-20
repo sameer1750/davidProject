@@ -1,0 +1,25 @@
+{
+  "name": "eddify",
+  "version": "0.0.0",
+  "authors": [
+    "sameer@warcircle.com"
+  ],
+  "description": "debate platform",
+  "keywords": [
+    "debate"
+  ],
+  "license": "MIT",
+  "homepage": "eddify",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "admin-lte": "~2.2.1",
+    "jquery": "~2.1.4",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.44"
+  }
+}

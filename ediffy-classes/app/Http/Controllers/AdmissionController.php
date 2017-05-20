@@ -1,0 +1,158 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+use App\Models\Admission;
+use Illuminate\Http\Request;
+use Session;
+
+class AdmissionController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $perPage = 25;
+        $data = $request->all();
+
+        $admission = new Admission();
+
+        if(isset($data['student_name']) & !empty($data['student_name'])){
+            $admission = $admission->where('student_name','LIKE','%'.$data['student_name'].'%');
+        }
+        if(isset($data['father_name']) & !empty($data['father_name'])){
+            $admission = $admission->where('father_name','LIKE','%'.$data['father_name'].'%');
+        }
+        if(isset($data['mother_name']) & !empty($data['mother_name'])){
+            $admission = $admission->where('mother_name','LIKE','%'.$data['mother_name'].'%');
+        }
+        if(isset($data['caste']) & !empty($data['caste'])){
+            $admission = $admission->where('caste','LIKE','%'.$data['caste'].'%');
+        }
+        if(isset($data['gender']) & !empty($data['gender'])){
+            $admission = $admission->where('gender','LIKE','%'.strtoupper($data['gender']).'%');
+        }
+        if(isset($data['marital_status']) & !empty($data['marital_status'])){
+            $admission = $admission->where('marital_status','LIKE','%'.strtoupper($data['marital_status']).'%');
+        }
+        if(isset($data['aadhaar_card_no']) & !empty($data['aadhaar_card_no'])){
+            $admission = $admission->where('aadhaar_card_no','LIKE','%'.$data['aadhaar_card_no'].'%');
+        }
+        if(isset($data['gender']) & !empty($data['gender'])){
+            $admission = $admission->where('gender','LIKE','%'.$data['gender'].'%');
+        }
+        if(isset($data['gender']) & !empty($data['gender'])){
+            $admission = $admission->where('gender','LIKE','%'.$data['gender'].'%');
+        }
+        if(isset($data['gender']) & !empty($data['gender'])){
+            $admission = $admission->where('gender','LIKE','%'.$data['gender'].'%');
+        }
+        if(isset($data['gender']) & !empty($data['gender'])){
+            $admission = $admission->where('gender','LIKE','%'.$data['gender'].'%');
+        }
+
+        $admission = $admission->paginate($perPage);
+
+        return view('admission.index', compact('admission'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admission.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        
+        $requestData = $request->all();
+        dd($requestData);
+        Admission::create($requestData);
+
+        Session::flash('flash_message', 'Admission added!');
+
+        return redirect('admission');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $admission = Admission::findOrFail($id);
+
+        return view('admission.show', compact('admission'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $admission = Admission::findOrFail($id);
+
+        return view('admission.edit', compact('admission'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update($id, Request $request)
+    {
+        
+        $requestData = $request->all();
+        
+        $admission = Admission::findOrFail($id);
+        $admission->update($requestData);
+
+        Session::flash('flash_message', 'Admission updated!');
+
+        return redirect('admission');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        Admission::destroy($id);
+
+        Session::flash('flash_message', 'Admission deleted!');
+
+        return redirect('admission');
+    }
+}

@@ -49,7 +49,7 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
+            'prefix' => 'ed_',
             'strict' => true,
             'engine' => null,
         ],
@@ -76,6 +76,18 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
+        ],
+
+        'mongodb' => [
+            'driver'   => 'mongodb',
+            'host'     => env('MONGODB_HOST', 'localhost'),
+            'port'     => env('MONGODB_PORT', 27017),
+            'database' => env('MONGODB_DATABASE','db_classes'),
+            'username' => env('MONGODB_USERNAME', ''),
+            'password' => env('MONGODB_PASSWORD', ''),
+            'options'  => [
+                'database' => 'admin'
+            ]
         ],
 
     ],
