@@ -72,6 +72,11 @@
                     {!! Form::text('enquiry_source', request()->get('enquiry_source'), ['class' => 'form-control']) !!}
                 </div>
 
+                <div class="form-group {{ $errors->has('job_required') ? 'has-error' : ''}}">
+                    {!! Form::label('job_required', 'Job Required', ['class' => 'control-label']) !!}
+                    {!! Form::select('job_required',['YES'=>'YES','NO'=>'NO'], request()->get('job_required'), ['class' => 'form-control','placeholder'=>'Job Required']) !!}
+                </div>
+
                 <div class="form-group">
                     {!! Form::submit('Apply Filter', ['class' => 'btn btn-primary btn-sm']) !!}
                 </div>

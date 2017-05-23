@@ -14,12 +14,14 @@ class HomeController extends Controller
 {
     public function getStudentDetails(Request $request){
         $keyWord = $request->q;
-        $group = Enquiry::where('student_name','LIKE','%'.$keyWord.'%')->select(['_id','student_name'])->get()->toArray();
+        $inquiryIds = Admission::pluck('inquiry_id');
+        $group = Enquiry::where('student_name','LIKE','%'.$keyWord.'%')->whereNotIn('_id',$inquiryIds)->orWhere('aadhaar_card_no','Like','%'.$keyWord.'%')->select(['_id','student_name','aadhaar_card_no'])->get()->toArray();
         foreach ($group as $key=>$value) {
             $group[$key]['id'] = $group[$key]['_id'];
+            $group[$key]['student_name'] = $group[$key]['student_name'].' - '.$group[$key]['aadhaar_card_no'];
             unset($group[$key]['_id']);
+            unset($group[$key]['aadhaar_card_no']);
         }
-
         return json_encode(['items'=>$group]);
     }
 

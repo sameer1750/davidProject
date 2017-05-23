@@ -6,6 +6,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Admission;
+use App\Models\AdmissionCourse;
+use App\Models\Batch;
+use App\Models\Center;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Session;
 
@@ -25,6 +29,9 @@ class AdmissionController extends Controller
 
         if(isset($data['student_name']) & !empty($data['student_name'])){
             $admission = $admission->where('student_name','LIKE','%'.$data['student_name'].'%');
+        }
+        if(isset($data['job_required']) & !empty($data['job_required'])){
+            $admission = $admission->where('job_required',$data['job_required']);
         }
         if(isset($data['father_name']) & !empty($data['father_name'])){
             $admission = $admission->where('father_name','LIKE','%'.$data['father_name'].'%');
@@ -69,7 +76,25 @@ class AdmissionController extends Controller
      */
     public function create()
     {
-        return view('admission.create');
+        $courseName = Course::pluck('name','id');
+        $center = Center::pluck('name','id');
+        $feesOption = [
+            'DOWN PAYMENT'=>'Down Payment',
+            'ONE INSTALLMENT'=>'One Installment',
+            'TWO INSTALLMENT'=>'Two Installment',
+            'THREE INSTALLMENT'=>'Three Installment',
+            'FOUR INSTALLMENT'=>'Four Installment',
+            'FIVE INSTALLMENT'=>'Five Installment',
+            'SIX INSTALLMENT'=>'Six Installment',
+            'SEVEN INSTALLMENT'=>'Seven Installment',
+            'EIGHT INSTALLMENT'=>'Eight Installment',
+            'NINE INSTALLMENT'=>'Nine Installment',
+            'TEN INSTALLMENT'=>'Ten Installment',
+
+        ];
+        $batch = Batch::select([\DB::raw("CONCAT_WS('-', start_time, start_am_pm, '', end_time,end_am_pm) as time"),'id'])->pluck('time','id');
+
+        return view('admission.create',compact('courseName','center','feesOption','batch'));
     }
 
     /**
@@ -81,11 +106,39 @@ class AdmissionController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        dd($requestData);
-        Admission::create($requestData);
+        $this->validate($request, [
+            'student_name' => 'required',
+            'image' => 'required|image',
+            'father_name' => 'required',
+            'father_occupation' => 'required',
+            'aadhaar_card_no' => 'required|unique:mongodb.admissions',
+            'email' => 'required|unique:mongodb.admissions',
+            'mobile_no' => 'required',
+            'course_name' => 'required',
+            'selected_course' => 'required'
 
+
+        ]);
+
+        $requestData = $request->all();
+        $requestDataData['inquiry_id'] = $requestData['student_name'];
+        $password =  str_random(8);
+        $requestData['password'] = bcrypt($password);
+
+        if ($request->hasFile('image')) {
+            $data = \Cloudinary\Uploader::upload($requestData['image']);
+
+            $requestData['image'] = $data['secure_url'];
+        }
+        $courseModules = json_decode($requestData['selected_course'],true);
+
+        unset($requestData['selected_course']);
+        unset($requestData['course_name']);
+        unset($requestData['course_module']);
+        $admission = Admission::create($requestData);
+        foreach ($courseModules as $cm) {
+            AdmissionCourse::create(['admission_id'=>$admission->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id']]);
+        }
         Session::flash('flash_message', 'Admission added!');
 
         return redirect('admission');
@@ -155,4 +208,5 @@ class AdmissionController extends Controller
 
         return redirect('admission');
     }
+
 }

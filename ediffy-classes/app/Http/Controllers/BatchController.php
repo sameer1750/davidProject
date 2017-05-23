@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admission;
 use App\Models\Batch;
+use App\Models\BatchModule;
 use App\Models\Course;
+use App\Models\CourseModule;
 use Illuminate\Http\Request;
 use Session;
 
@@ -42,7 +44,9 @@ class BatchController extends Controller
      */
     public function create()
     {
-        return view('batch.create');
+        $modules = CourseModule::select(['name','id'])->get();
+        $selectedModules = [];
+        return view('batch.create',compact('modules','selectedModules'));
     }
 
     /**
@@ -56,8 +60,8 @@ class BatchController extends Controller
     {
         
         $requestData = $request->all();
-        Batch::create($requestData);
-
+        $batch = Batch::create($requestData);
+        $batch->modules()->sync($requestData['module_ids']);
         Session::flash('flash_message', 'Batch added!');
 
         return redirect('batch');
@@ -87,8 +91,9 @@ class BatchController extends Controller
     public function edit($id)
     {
         $batch = Batch::findOrFail($id);
-
-        return view('batch.edit', compact('batch'));
+        $modules = CourseModule::select(['name','id'])->get();
+        $selectedModules = BatchModule::where('batch_id',$id)->pluck('module_id')->toArray();
+        return view('batch.edit', compact('batch','modules','selectedModules'));
     }
 
     /**
@@ -106,7 +111,7 @@ class BatchController extends Controller
         
         $batch = Batch::findOrFail($id);
         $batch->update($requestData);
-
+        $batch->modules()->sync($requestData['module_ids']);
         Session::flash('flash_message', 'Batch updated!');
 
         return redirect('batch');
@@ -128,11 +133,18 @@ class BatchController extends Controller
         return redirect('batch');
     }
 
-    public function batchDetails(Request $request){
+    public function batchDetails(Request $request)
+    {
         $data = $request->all();
         $totalEnrolled = Admission::where('id',$data['course_id'])->count();
         $batch = Batch::find($data['batch_id'])->toArray();
         $batch['available'] = (int)$batch['max_students'] - $totalEnrolled;
         return $batch;
+    }
+
+    public function batchDetailsByModule(Request $request)
+    {
+        $batches = BatchModule::where('module_id',$request->val)->pluck('batch_id');
+        return Batch::whereIn('id',$batches)->get();
     }
 }

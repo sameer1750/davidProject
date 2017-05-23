@@ -2,32 +2,30 @@
 
 namespace App\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class Admission extends Eloquent
+class AdmissionCourse extends Model
 {
-    protected $connection = 'mongodb';
-    protected $dates = ['admission_date'];
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'admissions';
-
+    protected $table = 'admission_course';
+    public $timestamps = false;
     /**
     * The database primary key value.
     *
     * @var string
     */
-    protected $primaryKey = '_id';
+    protected $primaryKey = 'id';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $guarded = ['_id'];
+    protected $fillable = ['admission_id','course_id','module_id'];
 
     
 }

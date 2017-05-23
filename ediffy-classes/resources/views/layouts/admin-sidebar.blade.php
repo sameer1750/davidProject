@@ -30,6 +30,12 @@
         <li><a href="{{ route('course.index')  }}"><i class="fa fa-flag"></i>Course</a></li>
         <li><a href="{{ route('course-module.index')  }}"><i class="fa fa-flag"></i>Course Modules</a></li>
         <li><a href="{{ route('center.index')  }}"><i class="fa fa-flag"></i>Centers</a></li>
+        <li><a href="{{ route('batch.index')  }}"><i class="fa fa-flag"></i>Batch</a></li>
+        <li><a href="{{ route('enquiry-source.index')  }}"><i class="fa fa-flag"></i>Enquiry Source</a></li>
+        <li><a href="{{ route('education.index')  }}"><i class="fa fa-flag"></i>Education</a></li>
+        <li><a href="{{ route('area.index')  }}"><i class="fa fa-flag"></i>Area</a></li>
+
+        <li><a href="{{ route('caste.index')  }}"><i class="fa fa-flag"></i>Caste</a></li>
 
         @if(auth()->user()->type_id == 1)
             <li><a href=""><i class="fa fa-flag"></i>Sub Admins</a></li>

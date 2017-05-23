@@ -32,6 +32,9 @@ class EnquiryController extends Controller
         if(isset($data['student_name']) & !empty($data['student_name'])){
             $enquiry = $enquiry->where('student_name','LIKE','%'.$data['student_name'].'%');
         }
+        if(isset($data['job_required']) & !empty($data['job_required'])){
+            $enquiry = $enquiry->where('job_required',$data['job_required']);
+        }
         if(isset($data['father_name']) & !empty($data['father_name'])){
             $enquiry = $enquiry->where('father_name','LIKE','%'.$data['father_name'].'%');
         }
@@ -115,20 +118,20 @@ class EnquiryController extends Controller
 //            'father_name' => 'required',
 //            'mother_name' => 'required',
 //            'birth_date' => 'required',
-//            'aadhaar_card_no' => 'required',
+//            'aadhaar_card_no' => 'required|unique:mongodb.enquiries',
 //            'res_address' => 'required',
 //            'telephone_r' => 'required_without:telephone_o',
 //            'telephone_o' => 'required_without:telephone_r',
-//            'email' => 'required'
-//
+//            'email' => 'required|unique:mongodb.enquiries',
+//            'selected_course'=>'json',
+//            'enquiry_on'=>'required|date'
 //        ]);
 
         $requestData = $request->all();
         $courseModules = json_decode($requestData['selected_course'],true);
-
         $enquiry = Enquiry::create($requestData);
         foreach ($courseModules as $cm) {
-            EnquiryCourse::create(['enquiry_id'=>$enquiry->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id']]);
+            EnquiryCourse::create(['enquiry_id'=>$enquiry->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id'],'batch_id'=>$cm['batch_id']]);
         }
 
         Session::flash('flash_message', 'Enquiry added!');

@@ -169,7 +169,7 @@
         <div class="form-group {{ $errors->has('center_id') ? 'has-error' : ''}}">
             {!! Form::label('center_id', 'Center', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('center_id', $center, null, ['class' => 'form-control']) !!}
+                {!! Form::select('center_id', $center,  null, ['class' => 'form-control']) !!}
                 {!! $errors->first('center_id', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -183,13 +183,21 @@
         </div>
 
         <div class="form-group {{ $errors->has('course_name') ? 'has-error' : ''}}">
-            {!! Form::label('course_name', 'Course Name', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('course_name', 'Module Name', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
                 <div class="well well-sm" id="cm" style="padding:0px;height: 100px; overflow: auto;">
 
                 </div>
             </div>
             <span id="addCourse" class="btn btn-primary btn-xs">Add</span>
+        </div>
+        <div class="form-group {{ $errors->has('preferred_batch') ? 'has-error' : ''}}">
+            {!! Form::label('preferred_batch', 'Preferred Batch', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::select('preferred_batch', $batch,null, ['class' => 'form-control','placeholder'=>'Select Batch']) !!}
+                {!! $errors->first('preferred_batch', '<p class="help-block">:message</p>') !!}
+                <div id="se_avail"></div>
+            </div>
         </div>
         <div class="form-group">
             {!! Form::label('selected_course_modules', 'Selected Courses', ['class' => 'col-md-4 control-label']) !!}
@@ -198,8 +206,9 @@
                     <div class="row">
                         <div class="col-md-3"><b>Course</b></div>
                         <div class="col-md-3"><b>Module</b></div>
-                        <div class="col-md-3"><b>Fees</b></div>
-                        <div class="col-md-3"><b>Remove</b></div>
+                        <div class="col-md-2"><b>Fees</b></div>
+                        <div class="col-md-2"><b>Batch</b></div>
+                        <div class="col-md-2"><b>Remove</b></div>
                     </div>
                 </div>
             </div>
@@ -237,13 +246,6 @@
         {!! Form::text('total_fees', 0, ['class' => 'form-control','disabled'=>'disabled']) !!}
         {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('preferred_batch') ? 'has-error' : ''}}">
-    {!! Form::label('preferred_batch', 'Preferred Batch', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::select('preferred_batch', $batch,null, ['class' => 'form-control','placeholder'=>'Select Batch']) !!}
-        {!! $errors->first('preferred_batch', '<p class="help-block">:message</p>') !!}
-        <div id="se_avail"></div>
-    </div>
 </div><div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">
     {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
@@ -276,6 +278,14 @@
         {!! $errors->first('next_followup_required', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+<div class="form-group {{ $errors->has('job_required') ? 'has-error' : ''}}">
+    {!! Form::label('job_required', 'Job Required', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::select('job_required', ['YES'=>'Yes','NO'=>'No'],null, ['class' => 'form-control']) !!}
+        {!! $errors->first('job_required', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
 <?php
     $joinChances = [
         'YES'=>'Yes',

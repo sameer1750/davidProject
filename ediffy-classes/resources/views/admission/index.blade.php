@@ -27,14 +27,13 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Student Name</th><th>Father Name</th><th>Mother Name</th><th>Actions</th>
+                                        <th>Student Name</th><th>Father Name</th><th>Aadhaar No</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($admission as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->student_name }}</td><td>{{ $item->father_name }}</td><td>{{ $item->mother_name }}</td>
+                                        <td>{{ $item->student_name }}</td><td>{{ $item->father_name }}</td><td>{{ $item->aadhaar_card_no }}</td>
                                         <td>
                                             <a href="{{ url('/admission/' . $item->id) }}" title="View Admission"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admission/' . $item->id . '/edit') }}" title="Edit Admission"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
@@ -81,6 +80,12 @@
                     {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'control-label']) !!}
                     {!! Form::text('enquiry_source', request()->get('enquiry_source'), ['class' => 'form-control']) !!}
                 </div>
+
+                <div class="form-group {{ $errors->has('job_required') ? 'has-error' : ''}}">
+                    {!! Form::label('job_required', 'Job Required', ['class' => 'control-label']) !!}
+                    {!! Form::select('job_required',['YES'=>'YES','NO'=>'NO'], request()->get('job_required'), ['class' => 'form-control','placeholder'=>'Job Required']) !!}
+                </div>
+
                 <input type="hidden" value="{{request()->get('tab')}}">
                 <div class="form-group">
                     {!! Form::submit('Apply Filter', ['class' => 'btn btn-primary btn-sm']) !!}

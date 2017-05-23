@@ -1,5 +1,9 @@
 <?php
-
+\Cloudinary::config(array(
+    "cloud_name" => env('CLOUDINARY_CLOUD_NAME'),
+    "api_key" => env('CLOUDONARY_API_KEY'),
+    "api_secret" => env('CLOUDINARY_API_SECRET')
+));
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,11 +24,17 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('center', 'CenterController');
     Route::resource('course', 'CourseController');
     Route::resource('caste', 'CasteController');
+    Route::resource('area', 'AreaController');
+    Route::resource('education', 'EducationController');
+    Route::resource('enquiry-source', 'EnquirySourceController');
+    Route::resource('batch', 'BatchController');
 
     Route::get('get-students-details','HomeController@getStudentDetails');
     Route::get('get-student','HomeController@getStudent');
     Route::get('get-course','CourseController@getSingleCourse');
     Route::get('get-batch-details','BatchController@batchDetails');
+    Route::get('get-batch-by-module','BatchController@batchDetailsByModule');
+
 });
 
 Auth::routes();
@@ -36,7 +46,3 @@ Auth::routes();
 
 
 
-Route::resource('area', 'AreaController');
-Route::resource('education', 'EducationController');
-Route::resource('enquiry-source', 'EnquirySourceController');
-Route::resource('batch', 'BatchController');
