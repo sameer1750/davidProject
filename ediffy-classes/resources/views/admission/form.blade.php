@@ -220,6 +220,15 @@
             </div>
             <span id="addCourse" class="btn btn-primary btn-xs">Add</span>
         </div>
+        <div class="form-group {{ $errors->has('preferred_batch') ? 'has-error' : ''}}">
+            {!! Form::label('preferred_batch', 'Preferred Batch', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::select('preferred_batch', $batch,null, ['class' => 'form-control ','placeholder'=>'Select Batch']) !!}
+                {!! $errors->first('preferred_batch', '<p class="help-block">:message</p>') !!}
+                <div id="se_avail"></div>
+            </div>
+            <div id="se_avail"></div>
+        </div>
         <div class="form-group">
             {!! Form::label('selected_course_modules', 'Selected Courses', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
@@ -265,13 +274,6 @@
     <div class="col-md-6">
         {!! Form::text('total_fees', 0, ['class' => 'form-control','disabled'=>'disabled']) !!}
         {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
-    </div>
-</div><div class="form-group {{ $errors->has('preferred_batch') ? 'has-error' : ''}}">
-    {!! Form::label('preferred_batch', 'Preferred Batch', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::select('preferred_batch', $batch,null, ['class' => 'form-control generalSelect2','placeholder'=>'Select Batch']) !!}
-        {!! $errors->first('preferred_batch', '<p class="help-block">:message</p>') !!}
-        <div id="se_avail"></div>
     </div>
 </div>
 {{--<div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">--}}

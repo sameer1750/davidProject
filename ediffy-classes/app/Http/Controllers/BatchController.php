@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Admission;
+use App\Models\AdmissionCourse;
 use App\Models\Batch;
 use App\Models\BatchModule;
 use App\Models\Course;
@@ -136,10 +137,10 @@ class BatchController extends Controller
     public function batchDetails(Request $request)
     {
         $data = $request->all();
-        $totalEnrolled = Admission::where('id',$data['course_id'])->count();
-        $batch = Batch::find($data['batch_id'])->toArray();
-        $batch['available'] = (int)$batch['max_students'] - $totalEnrolled;
-        return $batch;
+        $count = AdmissionCourse::where('batch_id',$data['batch_id'])
+            ->where('module_id',$data['module_id'])->where('course_id',$data['course_id'])->count();
+        $maxCount = (int)Batch::whereId($data['batch_id'])->first()->max_students;
+        return ['available'=>$maxCount-$count,'total'=>$maxCount];
     }
 
     public function batchDetailsByModule(Request $request)

@@ -25,7 +25,7 @@ class EnquiryCourse extends Model
      *
      * @var array
      */
-    protected $fillable = ['enquiry_id','course_id','module_id'];
+    protected $fillable = ['enquiry_id','course_id','module_id','batch_id'];
 
     
 }

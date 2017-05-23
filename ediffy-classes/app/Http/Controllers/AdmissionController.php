@@ -135,9 +135,10 @@ class AdmissionController extends Controller
         unset($requestData['selected_course']);
         unset($requestData['course_name']);
         unset($requestData['course_module']);
+
         $admission = Admission::create($requestData);
         foreach ($courseModules as $cm) {
-            AdmissionCourse::create(['admission_id'=>$admission->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id']]);
+            AdmissionCourse::create(['admission_id'=>$admission->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id'],'batch_id'=>$cm['batch_id']]);
         }
         Session::flash('flash_message', 'Admission added!');
 

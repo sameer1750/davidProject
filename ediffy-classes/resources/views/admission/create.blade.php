@@ -109,17 +109,19 @@
 
             $('body').on('click','#addCourse',function(){
                 var course_id = $('#course_name').val();
-                var courseText = $('#course_name').find('option:selected').text();
-                var module_id = $('input[name=course_module]:checked').val();
-
-                if(!module_id){
-                    alert('Please select a module first');
+                var batch_id = $('#preferred_batch').find('option:selected').val();
+                if(!batch_id){
+                    alert('Please Select Course,Module & Preferred Batch!!');
+                    return;
                 }
                 if(checkAndAdd(courseData,course_id)){
                     alert('Course Already Added!!');
                     return;
                 }
+                var module_id = $('input[name=course_module]:checked').val();
+                var courseText = $('#course_name').find('option:selected').text();
                 var moduleText = $('input[name=course_module]:checked').next('span').text();
+                var batchText = $('#preferred_batch').find('option:selected').text();
                 var fees = $('#course_fees').val();
                 var totalFees = parseInt($('#total_fees').val()) + parseInt(fees);
 
@@ -127,12 +129,52 @@
                 var tempObj = {};
                 tempObj['module_id'] = module_id;
                 tempObj['course_id'] = course_id;
+                tempObj['batch_id'] = batch_id;
                 courseData.push(tempObj);
 
                 var html = '<div class="row"><div class="col-md-3">'+courseText+'</div>' +
-                        '<div class="col-md-3">'+moduleText+'</div><div class="col-md-3">'+fees+'</div>' +
-                        '<div class="col-md-3"><span onclick="removeC()" data-fees="'+fees+'" data-course-id="'+course_id+'" data-module-id="'+module_id+'" class="btn btn-danger btn-xs">rem</span></div></div>';
+                        '<div class="col-md-3">'+moduleText+'</div><div class="col-md-2">'+fees+'</div><div class="col-md-2">'+batchText+'</div>' +
+                        '<div class="col-md-2"><span onclick="removeC()" data-fees="'+fees+'" data-course-id="'+course_id+'" data-module-id="'+module_id+'" class="btn btn-danger btn-xs">rem</span></div></div>';
                 $('#cms').append(html);
+            });
+
+            $('body').on('change','input[name=course_module]',function(){
+                var val = $(this).val();
+                $.ajax({
+                    type:"get",
+                    url:"/get-batch-by-module",
+                    data:{val:val},
+                    success:function(resp){
+                        $('#preferred_batch').find('option')
+                                .remove()
+                                .end();
+                        $.each(resp,function(key,val){
+                            $('#preferred_batch')
+                                    .append('<option value="'+val.id+'">'+val.full_start_time+'-'+val.full_end_time+'</option>')
+                        });
+
+                        console.log(resp)
+                    }
+                });
+            });
+
+            $('#preferred_batch').change(function(){
+                var val = $(this).val();
+                $('#se_avail').text('');
+                var courseId = $('#course_name').find('option:selected').val();
+                var moduleId = $('input[name=course_module]:checked').val();
+                $.ajax({
+                    type:"GET",
+                    url:"/get-batch-details",
+                    data: {
+                        batch_id: val,
+                        course_id: courseId,
+                        module_id: moduleId
+                    },
+                    success:function(resp){
+                        $('#se_avail').text('Total Seats : '+resp.total+'. Seats Available :'+resp.available);
+                    }
+                });
             });
 
             removeC = function(){

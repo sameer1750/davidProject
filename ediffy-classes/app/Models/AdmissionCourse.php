@@ -25,7 +25,7 @@ class AdmissionCourse extends Model
      *
      * @var array
      */
-    protected $fillable = ['admission_id','course_id','module_id'];
+    protected $fillable = ['admission_id','course_id','module_id','batch_id'];
 
     
 }

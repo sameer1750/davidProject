@@ -54,12 +54,14 @@
                         $('#preferred_batch').find('option')
                                 .remove()
                                 .end();
+
+                        $('#preferred_batch').append('<option value="">Select batch</option>');
+
                         $.each(resp,function(key,val){
                             $('#preferred_batch')
                                     .append('<option value="'+val.id+'">'+val.full_start_time+'-'+val.full_end_time+'</option>')
                         });
 
-                        console.log(resp)
                     }
                 });
             });
@@ -114,16 +116,19 @@
 
             $('#preferred_batch').change(function(){
                 var val = $(this).val();
+                $('#se_avail').text('');
                 var courseId = $('#course_name').find('option:selected').val();
+                var moduleId = $('input[name=course_module]:checked').val();
                 $.ajax({
                     type:"GET",
                     url:"/get-batch-details",
                     data: {
                         batch_id: val,
-                        course_id: courseId
+                        course_id: courseId,
+                        module_id: moduleId
                     },
                     success:function(resp){
-                        $('#se_avail').val('Total Seats : '+resp.max_students+' Seats Available :'+resp.avail);
+                        $('#se_avail').text('Total Seats : '+resp.total+'. Seats Available :'+resp.available);
                     }
                 });
             });

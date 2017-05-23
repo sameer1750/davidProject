@@ -198,6 +198,7 @@
                 {!! $errors->first('preferred_batch', '<p class="help-block">:message</p>') !!}
                 <div id="se_avail"></div>
             </div>
+            <div id="se_avail"></div>
         </div>
         <div class="form-group">
             {!! Form::label('selected_course_modules', 'Selected Courses', ['class' => 'col-md-4 control-label']) !!}

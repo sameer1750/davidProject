@@ -113,19 +113,19 @@ class EnquiryController extends Controller
      */
     public function store(Request $request)
     {
-//        $this->validate($request, [
-//            'student_name' => 'required',
-//            'father_name' => 'required',
-//            'mother_name' => 'required',
-//            'birth_date' => 'required',
-//            'aadhaar_card_no' => 'required|unique:mongodb.enquiries',
-//            'res_address' => 'required',
-//            'telephone_r' => 'required_without:telephone_o',
-//            'telephone_o' => 'required_without:telephone_r',
-//            'email' => 'required|unique:mongodb.enquiries',
-//            'selected_course'=>'json',
-//            'enquiry_on'=>'required|date'
-//        ]);
+        $this->validate($request, [
+            'student_name' => 'required',
+            'father_name' => 'required',
+            'mother_name' => 'required',
+            'birth_date' => 'required',
+            'aadhaar_card_no' => 'required|unique:mongodb.enquiries',
+            'res_address' => 'required',
+            'telephone_r' => 'required_without:telephone_o',
+            'telephone_o' => 'required_without:telephone_r',
+            'email' => 'required|unique:mongodb.enquiries',
+            'selected_course'=>'json',
+            'enquiry_on'=>'required|date'
+        ]);
 
         $requestData = $request->all();
         $courseModules = json_decode($requestData['selected_course'],true);
