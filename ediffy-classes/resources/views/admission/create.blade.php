@@ -64,7 +64,7 @@
                 if(val){
                     $.ajax({
                         type:"GET",
-                        url:"/classes/get-student",
+                        url:"{{env('APP_URL')}}/get-student",
                         data:{val:val},
                         success:function(resp){
                             $.each(resp,function(key,val){
@@ -83,7 +83,7 @@
 
             $("#search-name").select2({
                 ajax: {
-                    url: "/classes/get-students-details",
+                    url: "{{env('APP_URL')}}/get-students-details",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -142,7 +142,7 @@
                 var val = $(this).val();
                 $.ajax({
                     type:"get",
-                    url:"/classes/get-batch-by-module",
+                    url:"{{env('APP_URL')}}/get-batch-by-module",
                     data:{val:val},
                     success:function(resp){
                         $('#preferred_batch').find('option')
@@ -169,7 +169,7 @@
                 var moduleId = $('input[name=course_module]:checked').val();
                 $.ajax({
                     type:"GET",
-                    url:"/classes/get-batch-details",
+                    url:"{{env('APP_URL')}}/get-batch-details",
                     data: {
                         batch_id: val,
                         course_id: courseId,
@@ -205,7 +205,7 @@
                 var moduleId = $('input[name=course_module]:checked').val();
                 $.ajax({
                     type:"GET",
-                    url:"/classes/get-batch-details",
+                    url:"{{env('APP_URL')}}/get-batch-details",
                     data: {
                         batch_id: val,
                         course_id: courseId,
@@ -223,7 +223,7 @@
                 if(val){
                     $.ajax({
                         type:"GET",
-                        url:"/classes/get-course",
+                        url:"{{env('APP_URL')}}/get-course",
                         data:{id:val},
                         success:function(resp){
                             $('#duration').val(resp.Duration);

@@ -101,8 +101,8 @@ class AdminController extends Controller
     public function edit($id)
     {
         $admin = Admin::findOrFail($id);
-
-        return view('admin.edit', compact('admin'));
+        $type = \DB::table('user_types')->pluck('type','id');
+        return view('admin.edit', compact('admin','type'));
     }
 
     /**

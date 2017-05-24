@@ -106,8 +106,9 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::findOrFail($id);
-
-        return view('course.edit', compact('course'));
+        $modules = CourseModule::select(['name','id'])->get();
+        $centers = Center::select(['name','id'])->get();
+        return view('course.edit', compact('course','modules','centers'));
     }
 
     /**
