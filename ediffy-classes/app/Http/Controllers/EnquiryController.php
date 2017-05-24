@@ -14,6 +14,7 @@ use App\Models\Education;
 use App\Models\Enquiry;
 use App\Models\EnquiryCourse;
 use App\Models\EnquirySource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 
@@ -37,6 +38,12 @@ class EnquiryController extends Controller
         if(isset($data['enquiry_course']) & !empty($data['enquiry_course'])){
             $courseIds = EnquiryCourse::where('course_id',$data['enquiry_course'])->pluck('enquiry_id');
             $enquiry = $enquiry->whereIn('_id',$courseIds);
+        }
+        if(isset($data['follow_up_date']) & !empty($data['follow_up_date'])){
+            $date = explode(' - ',$data['follow_up_date']);
+            $startDate = Carbon::parse($date[0]);
+            $endDate = Carbon::parse($date[1]);
+            $enquiry = $enquiry->where('enquiry_on','>=',$startDate)->where('enquiry_on','<=',$endDate);
         }
         if(isset($data['job_required']) & !empty($data['job_required'])){
             $enquiry = $enquiry->where('job_required',$data['job_required']);
@@ -222,6 +229,20 @@ class EnquiryController extends Controller
         Enquiry::whereIn('_id',$request->ids)->delete();
 
         Session::flash('flash_message', 'Enquiries deleted!');
+
+        return redirect('enquiry');
+    }
+
+    public function showQuick()
+    {
+        return view('enquiry.quick');
+    }
+
+    public function saveQuick(Request $request)
+    {
+        $data = $request->all();
+        $data['type'] = 'QUICK';
+        Enquiry::create($data);
 
         return redirect('enquiry');
     }

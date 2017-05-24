@@ -43,6 +43,10 @@
                 endDate:"0d"
 
             });
+            $('#completionDate').datepicker({
+                autoclose:true,
+                format:"yyyy-mm-dd",
+            });
 
             $('body').on('change','input[name=course_module]',function(){
                 var val = $(this).val();

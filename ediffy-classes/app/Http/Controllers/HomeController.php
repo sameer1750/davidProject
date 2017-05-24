@@ -22,7 +22,14 @@ class HomeController extends Controller
 
         foreach ($group as $key=>$value) {
             $group[$key]['id'] = $group[$key]['_id'];
-            $group[$key]['student_name'] = $group[$key]['student_name'].' - '.$group[$key]['aadhaar_card_no'];
+
+            if(isset($group[$key]['aadhaar_card_no'])){
+                $concatString = $group[$key]['student_name'].' - '.$group[$key]['aadhaar_card_no'];
+            }else{
+                $concatString = $group[$key]['student_name'];
+            }
+
+            $group[$key]['student_name'] = $concatString;
             unset($group[$key]['_id']);
             unset($group[$key]['aadhaar_card_no']);
         }

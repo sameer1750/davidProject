@@ -14,9 +14,16 @@
         <br/>
         <div class="form-group {{ $errors->has('inquiry') ? 'has-error' : ''}}">
             {!! Form::label('inquiry', 'Search Student ', ['class' => 'col-md-4 control-label']) !!}
-            <div class="col-md-6">
+            <div class="col-md-4">
                 {!! Form::select('inquiry_id',[], null, ['class' => 'form-control','id'=>'search-name','placeholder'=>'Search By Name or Aadhaar Card No.']) !!}
                 {!! $errors->first('inquiry', '<p class="help-block">:message</p>') !!}
+            </div>
+            <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
+                <div class="col-md-4">
+                    {{--<img id="blah" width="90" height="90" alt="Your image" />--}}
+                    {!! Form::file('image', null, ['class' => 'form-control','id'=>'search-name']) !!}
+                    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
+                </div>
             </div>
         </div>
         <div class="form-group {{ $errors->has('student_name') ? 'has-error' : ''}}">
@@ -26,14 +33,7 @@
                 {!! $errors->first('student_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
-        <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
-            {!! Form::label('image', 'Image ', ['class' => 'col-md-4 control-label']) !!}
-            <div class="col-md-6">
-                <img id="blah" width="90" height="90" alt="Your image" />
-                {!! Form::file('image', null, ['class' => 'form-control','id'=>'search-name']) !!}
-                {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
-            </div>
-        </div>
+
         <div class="form-group {{ $errors->has('father_name') ? 'has-error' : ''}}">
             {!! Form::label('father_name', 'Father Name', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
@@ -206,7 +206,7 @@
         <div class="form-group {{ $errors->has('course_completion') ? 'has-error' : ''}}">
             {!! Form::label('course_completion', 'Course Completion Date', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('course_completion', null, ['class' => 'form-control','id'=>'completionDate','disabled'=>'disabled']) !!}
+                {!! Form::text('course_completion', null, ['class' => 'form-control','id'=>'completionDate']) !!}
                 {!! $errors->first('course_completion', '<p class="help-block">:message</p>') !!}
             </div>
         </div>

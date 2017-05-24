@@ -122,8 +122,6 @@ class AdmissionController extends Controller
             'mobile_no' => 'required',
             'course_name' => 'required',
             'selected_course' => 'required'
-
-
         ]);
 
         $requestData = $request->all();

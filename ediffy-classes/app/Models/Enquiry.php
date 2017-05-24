@@ -27,7 +27,7 @@ class Enquiry extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['student_name', 'father_name', 'mother_name', 'caste_id', 'birth_date', 'gender', 'marital_status', 'aadhaar_card_no', 'res_address', 'telephone_r', 'telephone_o', 'zip_code', 'email', 'mobile_no', 'area_id', 'education_id', 'university', 'it_knowledge', 'inquiry_date', 'course_id', 'duration', 'course_fees', 'total_fees', 'preferred_batch', 'enquiry_source', 'enquiry_taken_by', 'remarks', 'next_followup_required', 'joining_chances','fees_option','enquiry_on','center_id','job_required'];
+    protected $fillable = ['student_name', 'type', 'course_completion','father_name', 'mother_name', 'caste_id', 'birth_date', 'gender', 'marital_status', 'aadhaar_card_no', 'res_address', 'telephone_r', 'telephone_o', 'zip_code', 'email', 'mobile_no', 'area_id', 'education_id', 'university', 'it_knowledge', 'inquiry_date', 'course_id', 'duration', 'course_fees', 'total_fees', 'preferred_batch', 'enquiry_source', 'enquiry_taken_by', 'remarks', 'next_followup_required', 'joining_chances','fees_option','enquiry_on','center_id','job_required'];
 
     public function caste()
     {

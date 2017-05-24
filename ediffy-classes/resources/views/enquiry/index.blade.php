@@ -11,7 +11,9 @@
                         <a href="{{ url('/enquiry/create') }}" class="btn btn-success btn-sm" title="Add New Enquiry">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-
+                        <a href="{{ url('/quick-inquiry') }}" class="btn btn-success btn-sm" title="Add New Enquiry">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add Quick Enquiry
+                        </a>
                         <br/>
                         <br/>
                         <div class="table-responsive">
@@ -84,7 +86,10 @@
                     {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'control-label']) !!}
                     {!! Form::select('enquiry_source', $enquirySource, request()->get('enquiry_source'), ['class' => 'form-control','placeholder'=>'Enquiry Source']) !!}
                 </div>
-
+                <div class="form-group {{ $errors->has('follow_up_date') ? 'has-error' : ''}}">
+                    {!! Form::label('follow_up_date', 'Follow Up Date', ['class' => 'control-label']) !!}
+                    {!! Form::text('follow_up_date', request()->get('follow_up_date'), ['class' => 'form-control']) !!}
+                </div>
                 <div class="form-group {{ $errors->has('job_required') ? 'has-error' : ''}}">
                     {!! Form::label('job_required', 'Job Required', ['class' => 'control-label']) !!}
                     {!! Form::select('job_required',['YES'=>'YES','NO'=>'NO'], request()->get('job_required'), ['class' => 'form-control','placeholder'=>'Job Required']) !!}
@@ -104,6 +109,9 @@
             $("#select_all").change(function () {
                 $("input:checkbox").prop('checked', $(this).prop("checked"));
             });
+            $('#follow_up_date').daterangepicker({
+                opens: 'left'
+            })
         })
     </script>
 @endsection

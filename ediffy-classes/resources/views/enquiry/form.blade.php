@@ -177,7 +177,7 @@
         <div class="form-group {{ $errors->has('course_completion') ? 'has-error' : ''}}">
             {!! Form::label('course_completion', 'Course Completion Date', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('course_completion', null, ['class' => 'form-control','id'=>'completionDate','disabled'=>'disabled']) !!}
+                {!! Form::text('course_completion', null, ['class' => 'form-control','id'=>'completionDate']) !!}
                 {!! $errors->first('course_completion', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -247,7 +247,20 @@
         {!! Form::text('total_fees', 0, ['class' => 'form-control','disabled'=>'disabled']) !!}
         {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">
+</div>
+<div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
+    {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label',]) !!}
+    <div class="col-md-4">
+        {!! Form::text('discount', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
+    </div>
+    <div class="col-md-2">
+        {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control']) !!}
+        {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">
     {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::select('enquiry_source', $enquirySource, null, ['class' => 'form-control']) !!}
