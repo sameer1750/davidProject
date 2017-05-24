@@ -11,7 +11,7 @@ class CourseCenter extends Model
      *
      * @var string
      */
-    protected $table = 'course_modules';
+    protected $table = 'course_center';
 
     /**
     * The database primary key value.

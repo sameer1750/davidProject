@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Center;
 use App\Models\Course;
+use App\Models\CourseCenter;
 use App\Models\CourseModule;
+use App\Models\CourseToModule;
 use Illuminate\Http\Request;
 use Session;
 
@@ -49,7 +51,9 @@ class CourseController extends Controller
     {
         $modules = CourseModule::select(['name','id'])->get();
         $centers = Center::select(['name','id'])->get();
-        return view('course.create',compact('modules','centers'));
+        $selectedModules = [];
+        $selectedCenters = [];
+        return view('course.create',compact('modules','centers','selectedModules','selectedCenters'));
     }
 
     /**
@@ -108,7 +112,10 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $modules = CourseModule::select(['name','id'])->get();
         $centers = Center::select(['name','id'])->get();
-        return view('course.edit', compact('course','modules','centers'));
+        $selectedModules = CourseToModule::where('course_id',$id)->pluck('module_id')->toArray();
+        $selectedCenters = CourseCenter::where('course_id',$id)->pluck('center_id')->toArray();
+
+        return view('course.edit', compact('course','modules','centers','selectedModules','selectedCenters'));
     }
 
     /**

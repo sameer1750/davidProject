@@ -49,7 +49,7 @@
             @foreach($modules as $module)
                 <div class="checkbox">
                     <label>
-                        {!! Form::checkbox('module_ids[]',$module->id,null,[]) !!}
+                        {!! Form::checkbox('module_ids[]',$module->id,in_array($module->id,$selectedModules)?true:false,[]) !!}
                         <span>{{ $module->name }}</span>
                     </label>
                 </div>
@@ -59,7 +59,7 @@
     </div>
 </div>
 <div class="form-group {{ $errors->has('center_ids') ? 'has-error' : ''}}">
-    {!! Form::label('center_ids', 'Modules', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('center_ids', 'Centers', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         <div class="well well-sm" style="height: 300px; overflow: auto;">
             @foreach($centers as $center)
