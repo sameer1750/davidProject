@@ -29,8 +29,14 @@ class EnquiryController extends Controller
         $perPage = 25;
         $data = $request->all();
         $enquiry = new Enquiry();
+        $course = Course::pluck('name','id');
+        $enquirySource = EnquirySource::pluck('name','id');
         if(isset($data['student_name']) & !empty($data['student_name'])){
             $enquiry = $enquiry->where('student_name','LIKE','%'.$data['student_name'].'%');
+        }
+        if(isset($data['enquiry_course']) & !empty($data['enquiry_course'])){
+            $courseIds = EnquiryCourse::where('course_id',$data['enquiry_course'])->pluck('enquiry_id');
+            $enquiry = $enquiry->whereIn('_id',$courseIds);
         }
         if(isset($data['job_required']) & !empty($data['job_required'])){
             $enquiry = $enquiry->where('job_required',$data['job_required']);
@@ -62,14 +68,17 @@ class EnquiryController extends Controller
         if(isset($data['gender']) & !empty($data['gender'])){
             $enquiry = $enquiry->where('gender','LIKE','%'.$data['gender'].'%');
         }
-        if(isset($data['gender']) & !empty($data['gender'])){
-            $enquiry = $enquiry->where('gender','LIKE','%'.$data['gender'].'%');
+        if(isset($data['joining_chances']) & !empty($data['joining_chances'])){
+            $enquiry = $enquiry->where('joining_chances','=',$data['joining_chances']);
+        }
+        if(isset($data['enquiry_source']) & !empty($data['enquiry_source'])){
+            $enquiry = $enquiry->where('enquiry_source','=',$data['enquiry_source']);
         }
 
         $enquiry = $enquiry->paginate($perPage);
 
 
-        return view('enquiry.index', compact('enquiry'));
+        return view('enquiry.index', compact('enquiry','course','enquirySource'));
     }
 
     /**

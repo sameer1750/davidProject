@@ -10,6 +10,7 @@ use App\Models\AdmissionCourse;
 use App\Models\Batch;
 use App\Models\Center;
 use App\Models\Course;
+use App\Models\EnquirySource;
 use Illuminate\Http\Request;
 use Session;
 
@@ -26,9 +27,14 @@ class AdmissionController extends Controller
         $data = $request->all();
 
         $admission = new Admission();
-
+        $course = Course::pluck('name','id');
+        $enquirySource = EnquirySource::pluck('name','id');
         if(isset($data['student_name']) & !empty($data['student_name'])){
             $admission = $admission->where('student_name','LIKE','%'.$data['student_name'].'%');
+        }
+        if(isset($data['admission_course']) & !empty($data['admission_course'])){
+            $courseIds = AdmissionCourse::where('course_id',$data['admission_course'])->pluck('admission_id');
+            $admission = $admission->whereIn('_id',$courseIds);
         }
         if(isset($data['job_required']) & !empty($data['job_required'])){
             $admission = $admission->where('job_required',$data['job_required']);
@@ -66,7 +72,7 @@ class AdmissionController extends Controller
 
         $admission = $admission->paginate($perPage);
 
-        return view('admission.index', compact('admission'));
+        return view('admission.index', compact('admission','course','enquirySource'));
     }
 
     /**

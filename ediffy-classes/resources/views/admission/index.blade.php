@@ -67,19 +67,27 @@
                     {!! Form::label('student_name', 'Student Name', ['class' => 'control-label']) !!}
                     {!! Form::text('student_name', request()->get('student_name'), ['class' => 'form-control']) !!}
                 </div>
-                <div class="form-group {{ $errors->has('enquiry_course') ? 'has-error' : ''}}">
-                    {!! Form::label('enquiry_course', 'Enquiry Course', ['class' => 'control-label']) !!}
-                    {!! Form::text('enquiry_course', request()->get('enquiry_course'), ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group {{ $errors->has('joining_chances') ? 'has-error' : ''}}">
-                    {!! Form::label('joining_chances', 'Joining Chances', ['class' => 'control-label']) !!}
-                    {!! Form::text('joining_chances', request()->get('joining_chances'), ['class' => 'form-control']) !!}
+                <div class="form-group {{ $errors->has('admission_course') ? 'has-error' : ''}}">
+                    {!! Form::label('admission_course', 'Admission Course', ['class' => 'control-label']) !!}
+                    {!! Form::select('admission_course', $course, request()->get('admission_course'), ['class' => 'form-control','placeholder'=>'Select Course']) !!}
                 </div>
 
-                <div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">
-                    {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'control-label']) !!}
-                    {!! Form::text('enquiry_source', request()->get('enquiry_source'), ['class' => 'form-control']) !!}
-                </div>
+                <?php
+                $joinChances = [
+                        'YES'=>'Yes',
+                        'NO'=>'No',
+                        'MAYBE'=>'Maybe'
+                ];
+                ?>
+                {{--<div class="form-group {{ $errors->has('joining_chances') ? 'has-error' : ''}}">--}}
+                    {{--{!! Form::label('joining_chances', 'Joining Chances', ['class' => 'control-label']) !!}--}}
+                    {{--{!! Form::select('joining_chances', $joinChances, request()->get('joining_chances'), ['class' => 'form-control','placeholder'=>'Joining Chances']) !!}--}}
+                {{--</div>--}}
+
+                {{--<div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">--}}
+                    {{--{!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'control-label']) !!}--}}
+                    {{--{!! Form::select('enquiry_source', $enquirySource, request()->get('enquiry_source'), ['class' => 'form-control','placeholder'=>'Enquiry Source']) !!}--}}
+                {{--</div>--}}
 
                 <div class="form-group {{ $errors->has('job_required') ? 'has-error' : ''}}">
                     {!! Form::label('job_required', 'Job Required', ['class' => 'control-label']) !!}

@@ -2,6 +2,7 @@
 
 @section('content')
     <h2>Dashboard</h2>
+    @if(request()->user()->type_id == 1)
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -60,4 +61,5 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
