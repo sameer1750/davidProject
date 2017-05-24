@@ -236,8 +236,9 @@
                     <div class="row">
                         <div class="col-md-3"><b>Course</b></div>
                         <div class="col-md-3"><b>Module</b></div>
-                        <div class="col-md-3"><b>Fees</b></div>
-                        <div class="col-md-3"><b>Remove</b></div>
+                        <div class="col-md-2"><b>Fees</b></div>
+                        <div class="col-md-2"><b>Batch</b></div>
+                        <div class="col-md-2"><b>Remove</b></div>
                     </div>
                 </div>
             </div>
@@ -274,6 +275,17 @@
     <div class="col-md-6">
         {!! Form::text('total_fees', 0, ['class' => 'form-control','disabled'=>'disabled']) !!}
         {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
+    {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label',]) !!}
+    <div class="col-md-4">
+        {!! Form::text('discount', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
+    </div>
+    <div class="col-md-2">
+        {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control']) !!}
+        {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 {{--<div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">--}}
