@@ -65,7 +65,7 @@
             @foreach($centers as $center)
                 <div class="checkbox">
                     <label>
-                        {!! Form::checkbox('center_ids[]',$center->id,null,[]) !!}
+                        {!! Form::checkbox('center_ids[]',$center->id,(in_array($center->id,$selectedCenters))?true:false,[]) !!}
                         <span>{{ $center->name }}</span>
                     </label>
                 </div>
