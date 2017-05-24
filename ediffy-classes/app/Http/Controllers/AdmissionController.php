@@ -125,8 +125,13 @@ class AdmissionController extends Controller
         ]);
 
         $requestData = $request->all();
+        $center = Center::find($requestData['center_id']);
+
         $requestDataData['inquiry_id'] = $requestData['student_name'];
         $password =  str_random(8);
+        $subPass = explode('@',$requestData['email'])[0];
+        $check = Admission::where('email','Like',$subPass.'@'.'%')->count();
+        $requestData['username'] = 'n'.$center->code.$subPass.$check;
         $requestData['password'] = bcrypt($password);
 
         if ($request->hasFile('image')) {

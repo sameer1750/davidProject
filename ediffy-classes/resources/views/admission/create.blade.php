@@ -44,7 +44,10 @@
                 endDate:"0d"
 
             });
-
+            $('#completionDate').datepicker({
+                autoclose:true,
+                format:"yyyy-mm-dd"
+            });
             function formatRepo (repo) {
                 if (repo.loading) return repo.text;
 
