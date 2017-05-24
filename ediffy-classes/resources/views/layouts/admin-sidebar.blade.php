@@ -40,17 +40,17 @@
         @if(auth()->user()->type_id == 1)
             <li><a href="{{ route('admin.index')  }}"><i class="fa fa-flag"></i>Sub Admins</a></li>
         @endif
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-share"></i> <span>Institute Details</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu" style="display: none;">
-                <li><a href=""><i class="fa fa-flag"></i>Show</a></li>
-            </ul>
-        </li>
+        {{--<li class="treeview">--}}
+            {{--<a href="#">--}}
+                {{--<i class="fa fa-share"></i> <span>Institute Details</span>--}}
+            {{--<span class="pull-right-container">--}}
+              {{--<i class="fa fa-angle-left pull-right"></i>--}}
+            {{--</span>--}}
+            {{--</a>--}}
+            {{--<ul class="treeview-menu" style="display: none;">--}}
+                {{--<li><a href=""><i class="fa fa-flag"></i>Show</a></li>--}}
+            {{--</ul>--}}
+        {{--</li>--}}
         </li>
     </ul>
 </li>
