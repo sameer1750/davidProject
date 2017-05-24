@@ -216,4 +216,13 @@ class EnquiryController extends Controller
 
         return redirect('enquiry');
     }
+
+    public function bulkDelete(Request $request)
+    {
+        Enquiry::whereIn('_id',$request->ids)->delete();
+
+        Session::flash('flash_message', 'Enquiries deleted!');
+
+        return redirect('enquiry');
+    }
 }

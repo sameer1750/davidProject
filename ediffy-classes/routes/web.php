@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('education', 'EducationController');
     Route::resource('enquiry-source', 'EnquirySourceController');
     Route::resource('batch', 'BatchController');
+    Route::delete('enquiry-bulk-delete','EnquiryController@bulkDelete');
 
     Route::get('get-students-details','HomeController@getStudentDetails');
     Route::get('get-student','HomeController@getStudent');

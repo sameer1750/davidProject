@@ -17,7 +17,20 @@
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <thead>
-                                    <tr><th>Student Name</th><th>Father Name</th><th>Mother Name</th><th>Actions</th>
+                                    <tr><th>Student Name</th><th>Father Name</th><th>Mother Name</th><th>Actions</th><th>
+                                            {!! Form::open([
+                                              'method'=>'DELETE',
+                                              'url' => ['/enquiry-bulk-delete'],
+                                              'style' => 'display:inline'
+                                          ]) !!}
+                                            {{Form::checkbox('select_all','',false,['id'=>'select_all'])}}
+                                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                                       'type' => 'submit',
+                                                       'class' => 'btn btn-danger btn-xs',
+                                                       'title' => 'Delete Enquiry',
+                                                       'onclick'=>'return confirm("Confirm delete?")'
+                                               )) !!}
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -28,21 +41,14 @@
                                         <td>
                                             <a href="{{ url('/enquiry/' . $item->id) }}" title="View Enquiry"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             {{--<a href="{{ url('/enquiry/' . $item->id . '/edit') }}" title="Edit Enquiry"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
-                                            {{--{!! Form::open([--}}
-                                                {{--'method'=>'DELETE',--}}
-                                                {{--'url' => ['/enquiry', $item->id],--}}
-                                                {{--'style' => 'display:inline'--}}
-                                            {{--]) !!}--}}
-                                                {{--{!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(--}}
-                                                        {{--'type' => 'submit',--}}
-                                                        {{--'class' => 'btn btn-danger btn-xs',--}}
-                                                        {{--'title' => 'Delete Enquiry',--}}
-                                                        {{--'onclick'=>'return confirm("Confirm delete?")'--}}
-                                                {{--)) !!}--}}
-                                            {{--{!! Form::close() !!}--}}
+
                                         </td>
+                                        <td>  {{Form::checkbox('ids[]',$item->id)}}
+
+                                            </td>
                                     </tr>
                                 @endforeach
+                                {!! Form::close() !!}
                                 </tbody>
                             </table>
                             <div class="pagination-wrapper"> {!! $enquiry->appends(['search' => Request::get('search')])->render() !!} </div>
@@ -91,4 +97,13 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $("#select_all").change(function () {
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            });
+        })
+    </script>
 @endsection
