@@ -136,7 +136,6 @@ class AdmissionController extends Controller
 
         if ($request->hasFile('image')) {
             $data = \Cloudinary\Uploader::upload($requestData['image']);
-
             $requestData['image'] = $data['secure_url'];
         }
         $courseModules = json_decode($requestData['selected_course'],true);
