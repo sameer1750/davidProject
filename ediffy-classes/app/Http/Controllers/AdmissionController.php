@@ -7,10 +7,14 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admission;
 use App\Models\AdmissionCourse;
+use App\Models\Area;
 use App\Models\Batch;
 use App\Models\Center;
 use App\Models\Course;
+use App\Models\Education;
+use App\Models\Enquiry;
 use App\Models\EnquirySource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Session;
 
@@ -83,7 +87,14 @@ class AdmissionController extends Controller
     public function create()
     {
         $courseName = Course::pluck('name','id');
+        $source = EnquirySource::pluck('name','id');
+        $education = Education::pluck('name','id');
         $center = Center::pluck('name','id');
+        $area = Area::pluck('name','id');
+        $admissionIds = Admission::pluck('inquiry_id');
+        $enquiry = Enquiry::whereNotIn('_id',$admissionIds)->orderBy('created_at','DESC')->limit(50)->get();
+
+        $enqTaken = User::select([\DB::raw('CONCAT(first_name," ",last_name) as name'),'id'])->pluck('name','id');
         $feesOption = [
             'DOWN PAYMENT'=>'Down Payment',
             'ONE INSTALLMENT'=>'One Installment',
@@ -100,7 +111,7 @@ class AdmissionController extends Controller
         ];
         $batch = Batch::select([\DB::raw("CONCAT_WS('-', start_time, start_am_pm, '', end_time,end_am_pm) as time"),'id'])->pluck('time','id');
 
-        return view('admission.create',compact('courseName','center','feesOption','batch'));
+        return view('admission.create',compact('courseName','center','feesOption','batch','source','education','enqTaken','area','enquiry'));
     }
 
     /**

@@ -121,7 +121,7 @@
         </div><div class="form-group {{ $errors->has('area') ? 'has-error' : ''}}">
             {!! Form::label('area', 'Area/L', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('area', $area,null, ['class' => 'form-control']) !!}
+                {!! Form::select('area_id', $area,null, ['class' => 'form-control']) !!}
                 {!! $errors->first('area', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -255,7 +255,7 @@
         {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
     </div>
     <div class="col-md-2">
-        {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control']) !!}
+        {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEE'=>'RUPEES'], null, ['class' => 'form-control']) !!}
         {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

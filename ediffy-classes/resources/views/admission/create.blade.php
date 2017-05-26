@@ -30,6 +30,7 @@
             </div>
         </div>
     </div>
+    @include('admission.modal')
 @endsection
 
 @section('scripts')
@@ -84,30 +85,35 @@
 
             });
 
-            $("#search-name").select2({
-                ajax: {
-                    url: "{{env('APP_URL')}}/get-students-details",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data.items
-                        };
-                    },
-                    cache: true
-                },
-                allowClear: true,
-                placeholder:"Search By Name or Aadhaar Card No.",
-                escapeMarkup: function (markup) { return markup; },
-                minimumInputLength: 1,
-                templateResult: formatRepo,
-                templateSelection: formatRepoSelection
+            {{--$("#search-name").select2({--}}
+                {{--ajax: {--}}
+                    {{--url: "{{env('APP_URL')}}/get-students-details",--}}
+                    {{--dataType: 'json',--}}
+                    {{--delay: 250,--}}
+                    {{--data: function (params) {--}}
+                        {{--return {--}}
+                            {{--q: params.term, // search term--}}
+                        {{--};--}}
+                    {{--},--}}
+                    {{--processResults: function (data) {--}}
+                        {{--return {--}}
+                            {{--results: data.items--}}
+                        {{--};--}}
+                    {{--},--}}
+                    {{--cache: true--}}
+                {{--},--}}
+                {{--allowClear: true,--}}
+                {{--placeholder:"Search By Name or Aadhaar Card No.",--}}
+                {{--escapeMarkup: function (markup) { return markup; },--}}
+                {{--minimumInputLength: 1,--}}
+                {{--templateResult: formatRepo,--}}
+                {{--templateSelection: formatRepoSelection--}}
+            {{--});--}}
+
+            $('#student_name').dblclick(function(){
+                $('#myModal').modal('show');
             });
+
             $('.generalSelect2').select2();
 
             $('body').on('click','#addCourse',function(){
@@ -126,7 +132,11 @@
                 var moduleText = $('input[name=course_module]:checked').next('span').text();
                 var batchText = $('#preferred_batch').find('option:selected').text();
                 var fees = $('#course_fees').val();
-                var totalFees = parseInt($('#total_fees').val()) + parseInt(fees);
+                var currentFees = parseInt($('#total_fees').val());
+                if(!currentFees){
+                    currentFees = 0;
+                }
+                var totalFees = currentFees + parseInt(fees);
 
                 $('#total_fees').val(totalFees);
                 var tempObj = {};
@@ -271,10 +281,55 @@
                     reader.onload = function (e) {
                         $('#blah').attr('src', e.target.result);
                     };
-
                     reader.readAsDataURL(input.files[0]);
                 }
             }
+
+            $('#modalSubmit').click(function(e){
+                e.preventDefault();
+                var data = $('#modalForm').serialize();
+                $.ajax({
+                    type:"GET",
+                    url: "{{env('APP_URL')}}/inquiry-list",
+                    data:data,
+                    success:function(resp){
+                        $('#modalTable > tbody').html('');
+                        if(resp.length > 0){
+                            $.each(resp,function(key,val){
+
+                                var aadhaarNo = (val.aadhaar_card_no != undefined)?val.aadhaar_card_no:'';
+                                var email = (val.email != undefined)?val.email:'';
+                                var enquiry_on = (val.inquiry_date != undefined)?val.inquiry_date:val.created_at;
+
+                                var html = "<tr> <td>"+val.student_name+"</td> " +
+                                        "<td>"+aadhaarNo+"</td> <td>"+val.mobile_no+"</td><td>"+email+"</td>" +
+                                        "<td>"+val.enquiry_source+"</td><td>"+enquiry_on+"</td> <td><input type='radio' class='modalradio' name='student' value='"+val._id+"'></td></tr>";
+                                $('#modalTable > tbody').append(html)
+
+                            });
+                        }else{
+                            var html = "<tr> <td colspan='5'>No User Found</td></tr>";
+                            $('#modalTable > tbody').append(html)
+                        }
+
+                    }
+                });
+            });
+            $('body').on('change','.modalradio',function(){
+                var val = $(this).val();
+                $.ajax({
+                    type:"GET",
+                    url:"{{env('APP_URL')}}/get-student",
+                    data:{val:val},
+                    success:function(resp){
+                        $('#inquiry_id').val(resp._id);
+                        $.each(resp,function(key,val){
+                            $('#'+key).val(val);
+                        });
+                        $('#myModal').modal('toggle')
+                    }
+                });
+            });
         });
     </script>
 @endsection

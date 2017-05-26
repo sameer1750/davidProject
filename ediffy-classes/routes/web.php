@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('batch', 'BatchController');
     Route::get('quick-inquiry','EnquiryController@showQuick');
     Route::post('quick-inquiry','EnquiryController@saveQuick');
+    Route::get('inquiry-list','EnquiryController@listDetail');
 
     Route::delete('enquiry-bulk-delete','EnquiryController@bulkDelete');
 

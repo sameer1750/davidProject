@@ -86,7 +86,11 @@
                 var moduleText = $('input[name=course_module]:checked').next('span').text();
                 var batchText = $('#preferred_batch').find('option:selected').text();
                 var fees = $('#course_fees').val();
-                var totalFees = parseInt($('#total_fees').val()) + parseInt(fees);
+                var currentFees = parseInt($('#total_fees').val());
+                if(!currentFees){
+                    currentFees = 0;
+                }
+                var totalFees = currentFees + parseInt(fees);
 
                 $('#total_fees').val(totalFees);
                 var tempObj = {};
@@ -177,8 +181,9 @@
                 return found;
             }
 
-
-
+            $('#m_enquiry_date').click(function(){
+                alert(1)
+            })
         });
     </script>
 @endsection

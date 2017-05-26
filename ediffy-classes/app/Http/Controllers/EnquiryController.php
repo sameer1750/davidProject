@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Admission;
 use App\Models\Area;
 use App\Models\Batch;
 use App\Models\Caste;
@@ -242,8 +243,57 @@ class EnquiryController extends Controller
     {
         $data = $request->all();
         $data['type'] = 'QUICK';
+        $data['enquiry_source'] = auth()->user()->id;
         Enquiry::create($data);
 
         return redirect('enquiry');
+    }
+
+    public function listDetail(Request $request)
+    {
+        $data = $request->all();
+        $enquiry = new Enquiry();
+        if(isset($data['student_name']) & !empty($data['student_name'])){
+            $enquiry = $enquiry->where('student_name','LIKE','%'.$data['student_name'].'%');
+        }
+        if(isset($data['mobile_no']) & !empty($data['mobile_no'])){
+            $enquiry = $enquiry->where('mobile_no',$data['mobile_no']);
+        }
+        if(isset($data['enquiry_source']) & !empty($data['enquiry_source'])){
+            $enquiry = $enquiry->where('enquiry_source',$data['enquiry_source']);
+        }
+        if(isset($data['gender']) & !empty($data['gender'])){
+            $enquiry = $enquiry->where('gender',$data['gender']);
+        }
+        if(isset($data['education']) & !empty($data['education'])){
+            $enquiry = $enquiry->where('education',$data['education']);
+        }
+        if(isset($data['enq_taken_by']) & !empty($data['enq_taken_by'])){
+            $enquiry = $enquiry->where('enquiry_source',$data['enq_taken_by']);
+        }
+        if(isset($data['area']) & !empty($data['area'])){
+            $enquiry = $enquiry->where('area_id',$data['area']);
+        }
+        if(isset($data['email']) & !empty($data['email'])){
+            $enquiry = $enquiry->where('email','Like','%'.$data['email'].'%');
+        }
+        if(isset($data['aadhaar_card_no']) & !empty($data['aadhaar_card_no'])){
+            $enquiry = $enquiry->where('aadhaar_card_no','Like','%'.$data['aadhaar_card_no'].'%');
+        }
+//        if(isset($data['job_required']) & !empty($data['job_required'])){
+//            $enquiry = $enquiry->where('job_required',$data['job_required']);
+//        }
+//        if(isset($data['job_required']) & !empty($data['job_required'])){
+//            $enquiry = $enquiry->where('job_required',$data['job_required']);
+//        }
+//        if(isset($data['job_required']) & !empty($data['job_required'])){
+//            $enquiry = $enquiry->where('job_required',$data['job_required']);
+//        }
+//        if(isset($data['job_required']) & !empty($data['job_required'])){
+//            $enquiry = $enquiry->where('job_required',$data['job_required']);
+//        }
+
+        $enquiry = $enquiry->get();
+        return $enquiry;
     }
 }

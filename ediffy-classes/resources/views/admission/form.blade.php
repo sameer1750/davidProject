@@ -13,10 +13,12 @@
         <div class="panel-heading"><b>Personal Details</b></div>
         <br/>
         <div class="form-group {{ $errors->has('inquiry') ? 'has-error' : ''}}">
-            {!! Form::label('inquiry', 'Search Student ', ['class' => 'col-md-4 control-label']) !!}
+            {!! Form::label('student_name', 'Student Name ', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-4">
-                {!! Form::select('inquiry_id',[], null, ['class' => 'form-control','id'=>'search-name','placeholder'=>'Search By Name or Aadhaar Card No.']) !!}
-                {!! $errors->first('inquiry', '<p class="help-block">:message</p>') !!}
+                {!! Form::text('student_name', null, ['class' => 'form-control','placeholder'=>'Double Click to get User List']) !!}
+                {!! Form::input('hidden','inquiry_id', null, ['class' => 'form-control','id'=>'inquiry_id']) !!}
+
+                {!! $errors->first('student_name', '<p class="help-block">:message</p>') !!}
             </div>
             <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
                 <div class="col-md-4">
@@ -26,13 +28,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group {{ $errors->has('student_name') ? 'has-error' : ''}}">
-            {!! Form::label('student_name', 'Student Name ', ['class' => 'col-md-4 control-label']) !!}
-            <div class="col-md-6">
-                {!! Form::text('student_name', null, ['class' => 'form-control']) !!}
-                {!! $errors->first('student_name', '<p class="help-block">:message</p>') !!}
-            </div>
-        </div>
+        {{--<div class="form-group {{ $errors->has('student_name') ? 'has-error' : ''}}">--}}
+
+        {{--</div>--}}
 
         <div class="form-group {{ $errors->has('father_name') ? 'has-error' : ''}}">
             {!! Form::label('father_name', 'Father Name', ['class' => 'col-md-4 control-label']) !!}
