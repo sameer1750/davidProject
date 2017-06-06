@@ -176,7 +176,7 @@
             {{--</div>--}}
         {{--</div>--}}
     {{--</div>--}}
-    <div class="panel panel-default  panel-success">
+    <div class="panel panel-default panel-success">
         <div class="panel-heading"><b>Course Details</b></div>
         <br/>
         {{--<div class="form-group {{ $errors->has('inquiry_date') ? 'has-error' : ''}}">--}}
@@ -266,26 +266,123 @@
             </div>
         </div>
     </div>
+    <div class="panel panel-default panel-success">
+        <div class="panel-heading"><b>Tax & Installment Setup</b></div>
+        <br/>
+        <div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
+            {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label',]) !!}
+            <div class="col-md-4">
+                {!! Form::input('number','discount', null, ['class' => 'form-control']) !!}
+                {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
+            </div>
+            <div class="col-md-2">
+                {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control','id'=>'discount_type']) !!}
+                {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('total_fees') ? 'has-error' : ''}}">
+            {!! Form::label('total_fees', 'Total Fees', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::text('total_fees', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
+                {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('tax_amt') ? 'has-error' : ''}}">
+            {!! Form::label('tax_amt', 'Tax Amt.(If Any)', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::text('tax_amt', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
+                {!! $errors->first('tax_amt', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('total_fees_inc_tax') ? 'has-error' : ''}}">
+            {!! Form::label('total_fees_inc_tax', 'Total Fees (Inc Tax)', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::text('total_fees_inc_tax', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
+                {!! $errors->first('total_fees_inc_tax', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('royalty') ? 'has-error' : ''}}">
+            {!! Form::label('royalty', 'Royalty', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::text('royalty', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
+                {!! $errors->first('royalty', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('apply_tax') ? 'has-error' : ''}}">
+            {!! Form::label('apply_tax', 'Apply Tax', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::radio('apply_tax','yes') !!} Yes
+                {!! Form::radio('apply_tax','no') !!} No
+            </div>
+        </div>
+        <?php
+        $taxMethod = [
+                'EXCLUSIVE'=>'Exclusive',
+                'INCLUSIVE'=>'Inclusive'
+        ];
+        ?>
+        <div class="form-group {{ $errors->has('tax_method') ? 'has-error' : ''}}">
+            {!! Form::label('tax_method', 'Tax Method', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::select('tax_method',$taxMethod, 0, ['class' => 'form-control']) !!}
+                {!! $errors->first('tax_method', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('tax_type') ? 'has-error' : ''}}">
+            {!! Form::label('tax_type', 'Tax Type', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                <div class="well well-sm" style="padding:0px;height: 100px; overflow: auto;">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3"><b>Tax Type</b></div>
+                        <div class="col-md-3"><b>Rate %</b></div>
+                        <div class="col-md-4"><b>Amount</b></div>
+                    </div>
+
+                        @foreach($taxType as $tt)
+                        <div class="row">
+                            <div class="col-md-2">{!! Form::checkbox('service_tax[]',$tt->rate_percent,null,['class'=>'taxType','readonly'=>'readonly']) !!}</div>
+                            <div class="col-md-3">{{$tt->name}}</div>
+                            <div class="col-md-3">{{$tt->rate_percent}}</div>
+                            <div class="col-md-4">0</div>
+                        </div>
+                        @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('down_payment') ? 'has-error' : ''}}">
+            {!! Form::label('down_payment', 'Down Payment', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::text('down_payment', 0, ['class' => 'form-control']) !!}
+                {!! $errors->first('down_payment', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+
+        <div class="form-group {{ $errors->has('no_of_installment') ? 'has-error' : ''}}">
+            {!! Form::label('no_of_installment', 'No Of Installment', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::text('no_of_installment', 0, ['class' => 'form-control']) !!}
+                {!! $errors->first('no_of_installment', '<p class="help-block">:message</p>') !!}
+            </div>
+        </div>
+        <div class="form-group {{ $errors->has('installment_setup') ? 'has-error' : ''}}">
+            {!! Form::label('installment_setup', 'Installment Setup', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                <div class="well well-sm" id="installments" style="padding:0px;height: 100px; overflow: auto;">
+                    <div class="row">
+                        <div class="col-md-2"><b>No</b></div>
+                        <div class="col-md-5"><b>Due Date</b></div>
+                        <div class="col-md-5"><b>Amount</b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </div>
-<div class="form-group {{ $errors->has('total_fees') ? 'has-error' : ''}}">
-    {!! Form::label('total_fees', 'Total Fees', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::text('total_fees', 0, ['class' => 'form-control','disabled'=>'disabled']) !!}
-        {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-<div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
-    {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label',]) !!}
-    <div class="col-md-4">
-        {!! Form::text('discount', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
-    </div>
-    <div class="col-md-2">
-        {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control']) !!}
-        {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
+
+
 {{--<div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">--}}
     {{--{!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'col-md-4 control-label']) !!}--}}
     {{--<div class="col-md-6">--}}
@@ -295,7 +392,7 @@
 {{--</div><div class="form-group {{ $errors->has('enquiry_taken_by') ? 'has-error' : ''}}">--}}
     {{--{!! Form::label('enquiry_taken_by', 'Enquiry Taken By', ['class' => 'col-md-4 control-label']) !!}--}}
     {{--<div class="col-md-6">--}}
-        {{--{!! Form::text('enquiry_taken_by', auth()->user()->first_name.' '.auth()->user()->last_name, ['class' => 'form-control','disabled'=>'disabled']) !!}--}}
+        {{--{!! Form::text('enquiry_taken_by', auth()->user()->first_name.' '.auth()->user()->last_name, ['class' => 'form-control','readonly'=>'readonly']) !!}--}}
         {{--{!! $errors->first('enquiry_taken_by', '<p class="help-block">:message</p>') !!}--}}
     {{--</div>--}}
 {{--</div>--}}
@@ -362,8 +459,9 @@ $joinChances = [
     </div>
 </div>
 <div class="form-group">
-    <div class="col-md-offset-4 col-md-1">
+    <div class="col-md-offset-4 col-md-6">
         {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Save', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Save And Proceed to Fees Receipt', ['class' => 'btn btn-primary','name'=>'feeBtn']) !!}
     </div>
 </div>
 

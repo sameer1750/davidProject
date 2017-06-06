@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
-class AdmissionCourse extends Model
+class AdmissionInstallment extends Model
 {
     use HybridRelations;
 
@@ -14,7 +14,9 @@ class AdmissionCourse extends Model
      *
      * @var string
      */
-    protected $table = 'admission_course';
+    protected $connection = 'mysql';
+    protected $table = 'admission_installments';
+    protected $dates = ['due_date'];
     public $timestamps = false;
     /**
     * The database primary key value.
@@ -28,7 +30,11 @@ class AdmissionCourse extends Model
      *
      * @var array
      */
-    protected $fillable = ['admission_id','course_id','module_id','batch_id'];
+    protected $fillable = ['admission_id','amount','due_date'];
 
-    
+    public function admission()
+    {
+        return $this->belongsTo('App\Models\Admission','admission_id','_id');
+    }
+
 }

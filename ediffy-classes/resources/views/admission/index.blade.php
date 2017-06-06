@@ -36,19 +36,19 @@
                                         <td>{{ $item->student_name }}</td><td>{{ $item->father_name }}</td><td>{{ $item->aadhaar_card_no }}</td>
                                         <td>
                                             <a href="{{ url('/admission/' . $item->id) }}" title="View Admission"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admission/' . $item->id . '/edit') }}" title="Edit Admission"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                                            {!! Form::open([
-                                                'method'=>'DELETE',
-                                                'url' => ['/admission', $item->id],
-                                                'style' => 'display:inline'
-                                            ]) !!}
-                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                        'type' => 'submit',
-                                                        'class' => 'btn btn-danger btn-xs',
-                                                        'title' => 'Delete Admission',
-                                                        'onclick'=>'return confirm("Confirm delete?")'
-                                                )) !!}
-                                            {!! Form::close() !!}
+                                            {{--<a href="{{ url('/admission/' . $item->id . '/edit') }}" title="Edit Admission"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
+                                            {{--{!! Form::open([--}}
+                                                {{--'method'=>'DELETE',--}}
+                                                {{--'url' => ['/admission', $item->id],--}}
+                                                {{--'style' => 'display:inline'--}}
+                                            {{--]) !!}--}}
+                                                {{--{!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(--}}
+                                                        {{--'type' => 'submit',--}}
+                                                        {{--'class' => 'btn btn-danger btn-xs',--}}
+                                                        {{--'title' => 'Delete Admission',--}}
+                                                        {{--'onclick'=>'return confirm("Confirm delete?")'--}}
+                                                {{--)) !!}--}}
+                                            {{--{!! Form::close() !!}--}}
                                         </td>
                                     </tr>
                                 @endforeach

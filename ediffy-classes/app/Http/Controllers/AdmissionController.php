@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Admission;
 use App\Models\AdmissionCourse;
+use App\Models\AdmissionInstallment;
 use App\Models\Area;
 use App\Models\Batch;
 use App\Models\Center;
@@ -14,7 +15,9 @@ use App\Models\Course;
 use App\Models\Education;
 use App\Models\Enquiry;
 use App\Models\EnquirySource;
+use App\Models\TaxType;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 
@@ -87,6 +90,7 @@ class AdmissionController extends Controller
     public function create()
     {
         $courseName = Course::pluck('name','id');
+        $taxType = TaxType::get();
         $source = EnquirySource::pluck('name','id');
         $education = Education::pluck('name','id');
         $center = Center::pluck('name','id');
@@ -111,7 +115,7 @@ class AdmissionController extends Controller
         ];
         $batch = Batch::select([\DB::raw("CONCAT_WS('-', start_time, start_am_pm, '', end_time,end_am_pm) as time"),'id'])->pluck('time','id');
 
-        return view('admission.create',compact('courseName','center','feesOption','batch','source','education','enqTaken','area','enquiry'));
+        return view('admission.create',compact('courseName','center','feesOption','batch','source','education','enqTaken','area','enquiry','taxType'));
     }
 
     /**
@@ -136,6 +140,22 @@ class AdmissionController extends Controller
         ]);
 
         $requestData = $request->all();
+        $installments = [];
+        $totalFees = floor(($requestData['total_fees_inc_tax'] - $requestData['down_payment']) / $requestData['no_of_installment']);
+        $tempFees = 0;
+        for ($i=1;$i<=$requestData['no_of_installment'];$i++) {
+            if($i == $requestData['no_of_installment']){
+                $totalFees  = $requestData['total_fees_inc_tax'] - $requestData['down_payment']  - $totalFees;
+            }else{
+                $tempFees += $totalFees;
+            }
+            $temp = [
+                'due_date'=>Carbon::now()->addMonths($i)->toDateTimeString(),
+                'amount'=>$totalFees
+            ];
+            array_push($installments,$temp);
+        }
+
         $center = Center::find($requestData['center_id']);
 
         $requestDataData['inquiry_id'] = $requestData['student_name'];
@@ -159,6 +179,13 @@ class AdmissionController extends Controller
         foreach ($courseModules as $cm) {
             AdmissionCourse::create(['admission_id'=>$admission->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id'],'batch_id'=>$cm['batch_id']]);
         }
+
+        foreach ($installments as $key=>$val) {
+            $val['admission_id'] = $admission->id;
+            AdmissionInstallment::create($val);
+        }
+
+
         Session::flash('flash_message', 'Admission added!');
 
         return redirect('admission');

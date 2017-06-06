@@ -16,6 +16,12 @@
     </a>
 </li>
 
+<li class="treeview">
+    <a href="{{ route('fees.index') }}">
+        <i class="fa fa-dashboard"></i> <span>Fees</span>
+    </a>
+</li>
+
 
 
 <li class="treeview">

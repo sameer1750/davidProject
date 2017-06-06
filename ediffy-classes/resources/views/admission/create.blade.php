@@ -36,9 +36,8 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-
             var courseData = [];
-
+            var ttFees = 0;
             $('.datepicker').datepicker({
                 autoclose:true,
                 format:"yyyy-mm-dd",
@@ -82,37 +81,9 @@
                     var courseData = [];
                     $(':input').val('')
                 }
-
             });
 
-            {{--$("#search-name").select2({--}}
-                {{--ajax: {--}}
-                    {{--url: "{{env('APP_URL')}}/get-students-details",--}}
-                    {{--dataType: 'json',--}}
-                    {{--delay: 250,--}}
-                    {{--data: function (params) {--}}
-                        {{--return {--}}
-                            {{--q: params.term, // search term--}}
-                        {{--};--}}
-                    {{--},--}}
-                    {{--processResults: function (data) {--}}
-                        {{--return {--}}
-                            {{--results: data.items--}}
-                        {{--};--}}
-                    {{--},--}}
-                    {{--cache: true--}}
-                {{--},--}}
-                {{--allowClear: true,--}}
-                {{--placeholder:"Search By Name or Aadhaar Card No.",--}}
-                {{--escapeMarkup: function (markup) { return markup; },--}}
-                {{--minimumInputLength: 1,--}}
-                {{--templateResult: formatRepo,--}}
-                {{--templateSelection: formatRepoSelection--}}
-            {{--});--}}
-
-            $('#student_name').dblclick(function(){
-                $('#myModal').modal('show');
-            });
+            $('#student_name').dblclick(function(){$('#myModal').modal('show');});
 
             $('.generalSelect2').select2();
 
@@ -139,6 +110,9 @@
                 var totalFees = currentFees + parseInt(fees);
 
                 $('#total_fees').val(totalFees);
+                ttFees = totalFees;
+                $('#total_fees_inc_tax').val(totalFees);
+
                 var tempObj = {};
                 tempObj['module_id'] = module_id;
                 tempObj['course_id'] = course_id;
@@ -207,6 +181,8 @@
                 }
                 var curFees = parseInt($('#total_fees').val()) - fees;
                 $('#total_fees').val(curFees);
+                ttFees = curFees;
+                $('#total_fees_inc_tax').val(curFees);
 
                 $(event.currentTarget).parent().parent('.row').remove();
             };
@@ -315,6 +291,98 @@
                     }
                 });
             });
+
+            $(':radio[name="apply_tax"]').change(function(){
+                var val = $(this).filter(':checked').val();
+                if(val == 'yes'){
+                    $('.taxType').removeAttr('disabled');
+                }else{
+                    $('.taxType').attr('disabled','disabled');
+                    var tFees = $('#total_fees').val();
+                    $('#total_fees_inc_tax').val(tFees);
+                    $(".taxType").prop('checked', false);
+                    $('#tax_amt').val(0)
+                }
+            });
+            $('#discount').keyup(function(){
+                var disType = $('#discount_type').find(':selected').val();
+                var val = parseInt($(this).val());
+                if(isNaN(val) || val == 0){
+                    $('#total_fees').val(ttFees);
+                }else{
+                    if(disType == 'PERCENT'){
+                        var discount = (ttFees * val) / 100;
+                        $('#total_fees').val(ttFees-discount);
+                        $('#total_fees_inc_tax').val(ttFees-discount);
+                    }else{
+                        var discount = ttFees - val;
+                        $('#total_fees').val(discount);
+                        $('#total_fees_inc_tax').val(discount);
+
+                    }
+                }
+
+            });
+
+            $('#no_of_installment').keyup(function(){
+
+                var val = parseInt($(this).val());
+                var fees = parseFloat($('#total_fees_inc_tax').val()) - parseFloat($('#down_payment').val());
+                var eachInstallment = Math.floor(fees / val);
+                var te = 0;
+                for(var i=1;i<=val;i++){
+                    if(i == val){
+                        eachInstallment = fees - te;
+                    }else{
+                        te += eachInstallment;
+                    }
+                    var html = ' <div class="row"> ' +
+                            '<div class="col-md-2"><b>'+i+'</b></div> ' +
+                            '<div class="col-md-5"><b>'+moment().add(i,'months').format('YYYY-MMM-D')+'</b></div> ' +
+                            '<div class="col-md-5"><b>'+eachInstallment+'</b></div> ' +
+                            '</div>';
+                    $('#installments').append(html);
+                }
+            });
+
+            $('.taxType').click(function(){
+                var val = $(this).val();
+                var taxMethod = $('#tax_method').find(':selected').val();
+
+                if($(this).is(':checked')){
+                    if(taxMethod == 'EXCLUSIVE'){
+                        var tFees = $('#total_fees').val();
+                        var tIFees = parseFloat($('#total_fees_inc_tax').val());
+                        var newPercent = (tFees * val) / 100;
+                        var newTFees = parseFloat(newPercent) + tIFees;
+                        $('#total_fees_inc_tax').val(newTFees);
+                        var taxAmt = parseFloat($('#tax_amt').val()) + parseFloat(newPercent);
+                        $('#tax_amt').val(taxAmt)
+                    }else{
+
+                        var tFees = $('#total_fees').val();
+                        var tIFees = parseFloat($('#total_fees_inc_tax').val());
+                        var newPercent = (tFees * val) / 100;
+                        var newTFees = tFees - parseFloat(newPercent) ;
+                        $('#total_fees').val(newTFees);
+                        var taxAmt = parseFloat($('#tax_amt').val()) + parseFloat(newPercent);
+                        $('#tax_amt').val(taxAmt)
+                    }
+                }else{
+                    if(taxMethod == 'EXCLUSIVE'){
+                        var tFees = $('#total_fees').val();
+                        var tIFees = parseFloat($('#total_fees_inc_tax').val());
+                        var newPercent = (tFees * val) / 100;
+                        var newTFees = tIFees - parseFloat(newPercent);
+                        $('#total_fees_inc_tax').val(newTFees)
+                        var taxAmt = parseFloat($('#tax_amt').val()) - parseFloat(newPercent);
+                        $('#tax_amt').val(taxAmt)
+                    }else{
+
+                    }
+                }
+            });
+
             $('body').on('change','.modalradio',function(){
                 var val = $(this).val();
                 $.ajax({

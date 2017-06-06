@@ -16,7 +16,9 @@
 */
 
 Route::group(['middleware' => 'auth'],function(){
+
     Route::get('/', 'HomeController@dashboard');
+
     Route::resource('enquiry', 'EnquiryController');
     Route::resource('admission', 'AdmissionController');
     Route::resource('admin', 'AdminController');
@@ -28,9 +30,13 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('education', 'EducationController');
     Route::resource('enquiry-source', 'EnquirySourceController');
     Route::resource('batch', 'BatchController');
+    Route::resource('tax-type', 'TaxTypeController');
     Route::get('quick-inquiry','EnquiryController@showQuick');
     Route::post('quick-inquiry','EnquiryController@saveQuick');
     Route::get('inquiry-list','EnquiryController@listDetail');
+    Route::resource('fees', 'FeesController',['except' => [
+         'update', 'destroy','edit'
+    ]]);
 
     Route::delete('enquiry-bulk-delete','EnquiryController@bulkDelete');
 
@@ -39,10 +45,11 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('get-course','CourseController@getSingleCourse');
     Route::get('get-batch-details','BatchController@batchDetails');
     Route::get('get-batch-by-module','BatchController@batchDetailsByModule');
-
+    Route::get('get-fees-details','FeesController@getDetails');
 });
 
 Auth::routes();
+
 
 
 

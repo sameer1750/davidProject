@@ -59,7 +59,7 @@ class EnquiryController extends Controller
             $enquiry = $enquiry->where('caste','LIKE','%'.$data['caste'].'%');
         }
         if(isset($data['gender']) & !empty($data['gender'])){
-            $enquiry = $enquiry->where('gender','LIKE','%'.strtoupper($data['gender']).'%');
+            $enquiry = $enquiry->where('gender',$data['gender']);
         }
         if(isset($data['marital_status']) & !empty($data['marital_status'])){
             $enquiry = $enquiry->where('marital_status','LIKE','%'.strtoupper($data['marital_status']).'%');
@@ -267,6 +267,10 @@ class EnquiryController extends Controller
         }
         if(isset($data['education']) & !empty($data['education'])){
             $enquiry = $enquiry->where('education',$data['education']);
+        }
+        if(isset($data['enquiry_courses']) & !empty($data['enquiry_courses'])){
+            $eids = EnquiryCourse::where('course_id',$data['enquiry_courses'])->pluck('enquiry_id');
+            $enquiry = $enquiry->whereIn('_id',$eids);
         }
         if(isset($data['enq_taken_by']) & !empty($data['enq_taken_by'])){
             $enquiry = $enquiry->where('enquiry_source',$data['enq_taken_by']);

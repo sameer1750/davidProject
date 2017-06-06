@@ -3,19 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
-class AdmissionCourse extends Model
+class TaxType extends Model
 {
-    use HybridRelations;
-
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'admission_course';
-    public $timestamps = false;
+    protected $table = 'tax_types';
+
     /**
     * The database primary key value.
     *
@@ -28,7 +25,7 @@ class AdmissionCourse extends Model
      *
      * @var array
      */
-    protected $fillable = ['admission_id','course_id','module_id','batch_id'];
+    protected $fillable = ['name', 'rate_percent'];
 
     
 }
