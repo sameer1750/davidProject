@@ -51,26 +51,26 @@
             {{--{!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}--}}
         {{--</div>--}}
     {{--</div>--}}
-    <div class="form-group {{ $errors->has('tax_type') ? 'has-error' : ''}}">
-        {!! Form::label('tax_type', 'Tax Type', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            <div class="well well-sm" style="padding:0px;height: 100px; overflow: auto;">
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-6"><b>Tax Type</b></div>
-                    <div class="col-md-3"><b>Rate %</b></div>
-                </div>
+    {{--<div class="form-group {{ $errors->has('tax_type') ? 'has-error' : ''}}">--}}
+        {{--{!! Form::label('tax_type', 'Tax Type', ['class' => 'col-md-4 control-label']) !!}--}}
+        {{--<div class="col-md-6">--}}
+            {{--<div class="well well-sm" style="padding:0px;height: 100px; overflow: auto;">--}}
+                {{--<div class="row">--}}
+                    {{--<div class="col-md-2"></div>--}}
+                    {{--<div class="col-md-6"><b>Tax Type</b></div>--}}
+                    {{--<div class="col-md-3"><b>Rate %</b></div>--}}
+                {{--</div>--}}
 
-                @foreach($taxType as $tt)
-                    <div class="row">
-                        <div class="col-md-2">{!! Form::checkbox('service_tax[]',$tt->rate_percent,null,['class'=>'taxType','readonly'=>'readonly']) !!}</div>
-                        <div class="col-md-6">{{$tt->name}}</div>
-                        <div class="col-md-3">{{$tt->rate_percent}}</div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
+                {{--@foreach($taxType as $tt)--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-md-2">{!! Form::checkbox('service_tax[]',$tt->rate_percent,null,['class'=>'taxType','readonly'=>'readonly']) !!}</div>--}}
+                        {{--<div class="col-md-6">{{$tt->name}}</div>--}}
+                        {{--<div class="col-md-3">{{$tt->rate_percent}}</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
     <div class="form-group {{ $errors->has('tax_amount') ? 'has-error' : ''}}">
         {!! Form::label('tax_amount', 'Tax Amount (If Any)', ['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
