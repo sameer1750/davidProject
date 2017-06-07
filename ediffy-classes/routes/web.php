@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('quick-inquiry','EnquiryController@showQuick');
     Route::post('quick-inquiry','EnquiryController@saveQuick');
     Route::get('inquiry-list','EnquiryController@listDetail');
+    Route::get('admission-list','AdmissionController@listDetail');
     Route::resource('fees', 'FeesController',['except' => [
          'update', 'destroy','edit'
     ]]);

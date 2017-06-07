@@ -174,10 +174,11 @@ class AdmissionController extends Controller
         unset($requestData['selected_course']);
         unset($requestData['course_name']);
         unset($requestData['course_module']);
-
+        $cc = $requestData['course_completion'];
+        unset($requestData['course_completion']);
         $admission = Admission::create($requestData);
         foreach ($courseModules as $cm) {
-            AdmissionCourse::create(['admission_id'=>$admission->id,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id'],'batch_id'=>$cm['batch_id']]);
+            AdmissionCourse::create(['admission_id'=>$admission->id,'course_completion'=>$cc,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id'],'batch_id'=>$cm['batch_id']]);
         }
 
         foreach ($installments as $key=>$val) {
@@ -256,4 +257,18 @@ class AdmissionController extends Controller
         return redirect('admission');
     }
 
+    public function listDetail(Request $request)
+    {
+        $data = $request->all();
+        $enquiry = new Admission();
+        if(isset($data['student_name']) & !empty($data['student_name'])){
+            $enquiry = $enquiry->where('student_name','LIKE','%'.$data['student_name'].'%');
+        }
+        if(isset($data['mobile_no']) & !empty($data['mobile_no'])){
+            $enquiry = $enquiry->where('mobile_no',$data['mobile_no']);
+        }
+
+        $enquiry = $enquiry->get();
+        return $enquiry;
+    }
 }

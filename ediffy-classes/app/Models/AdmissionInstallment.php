@@ -16,7 +16,7 @@ class AdmissionInstallment extends Model
      */
     protected $connection = 'mysql';
     protected $table = 'admission_installments';
-    protected $dates = ['due_date'];
+    protected $dates = ['due_date','receipt_date','cheque_date'];
     public $timestamps = false;
     /**
     * The database primary key value.
@@ -30,7 +30,7 @@ class AdmissionInstallment extends Model
      *
      * @var array
      */
-    protected $fillable = ['admission_id','amount','due_date'];
+    protected $guarded = ['id'];
 
     public function admission()
     {

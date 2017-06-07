@@ -16,6 +16,7 @@ class AdmissionCourse extends Model
      */
     protected $table = 'admission_course';
     public $timestamps = false;
+    protected $dates = ['course_completion'];
     /**
     * The database primary key value.
     *
@@ -28,7 +29,20 @@ class AdmissionCourse extends Model
      *
      * @var array
      */
-    protected $fillable = ['admission_id','course_id','module_id','batch_id'];
+    protected $fillable = ['admission_id','course_id','module_id','batch_id','course_completion'];
 
+    public function course()
+    {
+        return $this->belongsTo('App\Models\Course','course_id','id');
+    }
+    public function module()
+    {
+        return $this->belongsTo('App\Models\CourseModule','module_id','id');
+    }
+    public function batch()
+    {
+        return $this->belongsTo('App\Models\Batch','batch_id','id');
+
+    }
     
 }

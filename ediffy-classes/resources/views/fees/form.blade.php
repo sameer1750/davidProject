@@ -23,13 +23,13 @@
             {!! $errors->first('course_fees', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('fees_received') ? 'has-error' : ''}}">
-        {!! Form::label('fees_received', 'Fees Received', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('fees_received', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
-            {!! $errors->first('fees_received', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
+    {{--<div class="form-group {{ $errors->has('fees_received') ? 'has-error' : ''}}">--}}
+        {{--{!! Form::label('fees_received', 'Fees Received', ['class' => 'col-md-4 control-label']) !!}--}}
+        {{--<div class="col-md-6">--}}
+            {{--{!! Form::text('fees_received', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}--}}
+            {{--{!! $errors->first('fees_received', '<p class="help-block">:message</p>') !!}--}}
+        {{--</div>--}}
+    {{--</div>--}}
     <div class="form-group {{ $errors->has('fees_balance') ? 'has-error' : ''}}">
         {!! Form::label('fees_balance', 'Fees Balance', ['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
@@ -44,11 +44,31 @@
             {!! $errors->first('installment_amount', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('total_fees') ? 'has-error' : ''}}">
-        {!! Form::label('total_fees', 'Total Fees', ['class' => 'col-md-4 control-label']) !!}
+    {{--<div class="form-group {{ $errors->has('total_fees') ? 'has-error' : ''}}">--}}
+        {{--{!! Form::label('total_fees', 'Total Fees', ['class' => 'col-md-4 control-label']) !!}--}}
+        {{--<div class="col-md-6">--}}
+            {{--{!! Form::text('total_fees', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}--}}
+            {{--{!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    <div class="form-group {{ $errors->has('tax_type') ? 'has-error' : ''}}">
+        {!! Form::label('tax_type', 'Tax Type', ['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::text('total_fees', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
-            {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
+            <div class="well well-sm" style="padding:0px;height: 100px; overflow: auto;">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-6"><b>Tax Type</b></div>
+                    <div class="col-md-3"><b>Rate %</b></div>
+                </div>
+
+                @foreach($taxType as $tt)
+                    <div class="row">
+                        <div class="col-md-2">{!! Form::checkbox('service_tax[]',$tt->rate_percent,null,['class'=>'taxType','readonly'=>'readonly']) !!}</div>
+                        <div class="col-md-6">{{$tt->name}}</div>
+                        <div class="col-md-3">{{$tt->rate_percent}}</div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
     <div class="form-group {{ $errors->has('tax_amount') ? 'has-error' : ''}}">
@@ -61,17 +81,18 @@
     <div class="form-group {{ $errors->has('received_amount') ? 'has-error' : ''}}">
         {!! Form::label('received_amount', 'Received Amount', ['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::text('received_amount', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
+            {!! Form::text('received_amount', 0, ['class' => 'form-control']) !!}
             {!! $errors->first('received_amount', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('balance_amount') ? 'has-error' : ''}}">
-        {!! Form::label('balance_amount', 'Balance Amount (EX. TAX)', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('balance_amount', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
-            {!! $errors->first('balance_amount', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
+    {{Form::hidden('admission_id',null,['id'=>'admission_id'])}}
+    {{--<div class="form-group {{ $errors->has('balance_amount') ? 'has-error' : ''}}">--}}
+        {{--{!! Form::label('balance_amount', 'Balance Amount (EX. TAX)', ['class' => 'col-md-4 control-label']) !!}--}}
+        {{--<div class="col-md-6">--}}
+            {{--{!! Form::text('balance_amount', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}--}}
+            {{--{!! $errors->first('balance_amount', '<p class="help-block">:message</p>') !!}--}}
+        {{--</div>--}}
+    {{--</div>--}}
 </div>
 <div class="panel panel-default panel-success">
     <div class="panel-heading"><b>Payment Details</b></div>
@@ -127,6 +148,7 @@
             {!! $errors->first('fees_recieved_by', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+
     <?php
         $account = [
             '20% royalty from branches'=>'20% royalty from branches',

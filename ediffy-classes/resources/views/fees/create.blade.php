@@ -35,15 +35,15 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            $('#receipt_date').datepicker("setDate", new Date());
-            $('#cheque_date').datepicker("setDate", new Date());
+            $('#receipt_date').datepicker({format:"yyyy-mm-dd"}).datepicker("setDate",new Date());
+            $('#cheque_date').datepicker({format:"yyyy-mm-dd"});
             $('#student_name').dblclick(function(){$('#myModal').modal('show');});
             $('#modalSubmit').click(function(e){
                 e.preventDefault();
                 var data = $('#modalForm').serialize();
                 $.ajax({
                     type:"GET",
-                    url: "{{env('APP_URL')}}/inquiry-list",
+                    url: "{{env('APP_URL')}}/admission-list",
                     data:data,
                     success:function(resp){
                         $('#modalTable > tbody').html('');
@@ -73,7 +73,13 @@
                     url:"{{env('APP_URL')}}/get-fees-details",
                     data:{val:val},
                     success:function(resp){
-                        $('#student_name').val(resp.student_name);
+                        $('#admission_id').val(resp.adms._id)
+                        $('#student_name').val(resp.adms.student_name);
+                        $('#course_fees').val(resp.tf);
+                        $('#fees_balance').val(resp.rb)
+                        $('#installment_amount').val(resp.latestInstallment.amount);
+                        $('#received_amount').val(resp.latestInstallment.amount);
+                        $('#last_installment').val((resp.ls)?resp.ls.due_date:'');
                         $('#myModal').modal('toggle')
                     }
                 });

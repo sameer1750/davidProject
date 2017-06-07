@@ -29,5 +29,10 @@ class Admission extends Eloquent
      */
     protected $guarded = ['_id'];
 
-    
+    public function fees()
+    {
+        return $this->hasMany('App\Models\AdmissionInstallment','admission_id','_id');
+    }
+
+
 }
