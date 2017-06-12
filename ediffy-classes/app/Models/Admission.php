@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+use Jenssegers\Mongodb\Eloquent\SoftDeletes;
 
 class Admission extends Eloquent
 {
+    use SoftDeletes;
     protected $connection = 'mongodb';
-    protected $dates = ['admission_date'];
+    protected $dates = ['admission_date','deleted_at'];
     /**
      * The database table used by the model.
      *

@@ -86,9 +86,9 @@
                     {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'control-label']) !!}
                     {!! Form::select('enquiry_source', $enquirySource, request()->get('enquiry_source'), ['class' => 'form-control','placeholder'=>'Enquiry Source']) !!}
                 </div>
-                <div class="form-group {{ $errors->has('follow_up_date') ? 'has-error' : ''}}">
-                    {!! Form::label('follow_up_date', 'Follow Up Date', ['class' => 'control-label']) !!}
-                    {!! Form::text('follow_up_date', request()->get('follow_up_date'), ['class' => 'form-control']) !!}
+                <div class="form-group {{ $errors->has('enquiry_date') ? 'has-error' : ''}}">
+                    {!! Form::label('enquiry_date', 'Enquiry Date', ['class' => 'control-label']) !!}
+                    {!! Form::text('enquiry_date', request()->get('enquiry_date'), ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group {{ $errors->has('job_required') ? 'has-error' : ''}}">
                     {!! Form::label('job_required', 'Job Required', ['class' => 'control-label']) !!}
@@ -109,7 +109,7 @@
             $("#select_all").change(function () {
                 $("input:checkbox").prop('checked', $(this).prop("checked"));
             });
-            $('#follow_up_date').daterangepicker({
+            $('#enquiry_date').daterangepicker({
                 opens: 'left'
             })
         })
