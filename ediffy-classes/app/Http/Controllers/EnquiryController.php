@@ -73,8 +73,11 @@ class EnquiryController extends Controller
         if(isset($data['gender']) & !empty($data['gender'])){
             $enquiry = $enquiry->where('gender','LIKE','%'.$data['gender'].'%');
         }
-        if(isset($data['gender']) & !empty($data['gender'])){
-            $enquiry = $enquiry->where('gender','LIKE','%'.$data['gender'].'%');
+        if(isset($data['enquiry_date']) & !empty($data['enquiry_date'])){
+            $dates = explode(' - ',$data['enquiry_date']);
+            $startDate = Carbon::parse($dates[0]);
+            $endDate = Carbon::parse($dates[1]);
+            $enquiry = $enquiry->whereBetween('inquiry_date',[$startDate,$endDate]);
         }
         if(isset($data['joining_chances']) & !empty($data['joining_chances'])){
             $enquiry = $enquiry->where('joining_chances','=',$data['joining_chances']);
@@ -198,9 +201,9 @@ class EnquiryController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+
         $requestData = $request->all();
-        
+
         $enquiry = Enquiry::findOrFail($id);
         $enquiry->update($requestData);
 
