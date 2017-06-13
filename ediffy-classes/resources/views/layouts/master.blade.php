@@ -72,6 +72,7 @@
 <!-- Bootstrap 3.3.2 JS -->
 <script src="{{env('APP_URL')}}/bower_components/admin-lte/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="{{env('APP_URL')}}/bower_components/moment/min/moment.min.js" type="text/javascript"></script>
+<script src="{{env('APP_URL')}}/bower_components/html5formshim/src/h5formshim.js" type="text/javascript"></script>
 
 <!-- Sparkline -->
 <script src="{{env('APP_URL')}}/bower_components/admin-lte/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>

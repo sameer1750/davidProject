@@ -21,6 +21,7 @@
     "admin-lte": "~2.2.1",
     "jquery": "~2.1.4",
     "eonasdan-bootstrap-datetimepicker": "~4.17.44",
-    "moment": "~2.18.1"
+    "moment": "~2.18.1",
+    "html5formshim": "~2.3.1"
   }
 }

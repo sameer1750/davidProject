@@ -19,7 +19,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/enquiry', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/enquiry', 'class' => 'form-horizontal', 'files' => true,'data-enable-shim'=>true]) !!}
 
                         @include ('enquiry.form')
 
