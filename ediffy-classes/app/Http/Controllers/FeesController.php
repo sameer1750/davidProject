@@ -34,6 +34,18 @@ class FeesController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        if($data['installment_amount'] > $data['received_amount']){
+            $remainingAmount = (float)$data['installment_amount'] - (float)$data['received_amount'];
+            $nai = AdmissionInstallment::where('admission_id',$data['admission_id'])->where('paid',0)
+                ->orderBy('due_date','DESC')->first();
+            $rcreate = new AdmissionInstallment();
+            $rcreate->admission_id = $data['admission_id'];
+            $rcreate->amount = $remainingAmount;
+            $rcreate->due_date = Carbon::parse($nai->due_date)->addMonth(1);
+            $rcreate->paid = 0;
+            $rcreate->save();
+        }
+
         $ai = AdmissionInstallment::where('admission_id',$data['admission_id'])->where('paid',0)
             ->orderBy('due_date')->first();
         $ai->paid = 1;

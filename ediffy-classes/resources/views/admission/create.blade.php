@@ -304,8 +304,9 @@
                     $('#tax_amt').val(0)
                 }
             });
-            $('#discount').keyup(function(){
-                var disType = $('#discount_type').find(':selected').val();
+
+            $('body').on('keyup','#discount',function(){
+                var disType = $(this).parent().next('div').children('select').find(':selected').val();
                 var val = parseInt($(this).val());
                 if(isNaN(val) || val == 0){
                     $('#total_fees').val(ttFees);
@@ -318,10 +319,8 @@
                         var discount = ttFees - val;
                         $('#total_fees').val(discount);
                         $('#total_fees_inc_tax').val(discount);
-
                     }
                 }
-
             });
 
             $('#no_of_installment').keyup(function(){
@@ -397,6 +396,15 @@
                         $('#myModal').modal('toggle')
                     }
                 });
+            });
+
+
+            $('#addDiscount').click(function(){
+                $('#cloneDiv').append('<div class="col-md-offset-4 col-md-2"> ' +
+                        '<input class="form-control" name="discount" type="number" id="discount"> ' +
+                        '</div> <div class="col-md-2"> ' +
+                        '<select class="form-control" id="discount_type" name="discount_type"><option value="PERCENT">PERCENT</option><option value="RUPEES">RUPEES</option></select> ' +
+                        '</div>')
             });
         });
     </script>

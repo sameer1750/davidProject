@@ -231,6 +231,7 @@ class EnquiryController extends Controller
     public function bulkDelete(Request $request)
     {
         Enquiry::whereIn('_id',$request->ids)->delete();
+        Admission::whereIn('inquiry_id',$request->ids)->delete();
 
         Session::flash('flash_message', 'Enquiries deleted!');
 

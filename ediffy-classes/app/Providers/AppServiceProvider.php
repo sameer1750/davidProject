@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Enquiry;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\EnquiryObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Enquiry::observe(EnquiryObserver::class);
     }
 
     /**

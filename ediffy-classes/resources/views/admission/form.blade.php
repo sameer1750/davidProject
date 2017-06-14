@@ -270,8 +270,9 @@
         <div class="panel-heading"><b>Tax & Installment Setup</b></div>
         <br/>
         <div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
-            {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label',]) !!}
-            <div class="col-md-4">
+            {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label']) !!}
+            <span id="dDiv">
+            <div class="col-md-2">
                 {!! Form::input('number','discount', null, ['class' => 'form-control']) !!}
                 {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
             </div>
@@ -279,7 +280,13 @@
                 {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control','id'=>'discount_type']) !!}
                 {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
             </div>
+            </span>
+
+            <div class="col-md-2">
+                <span id="addDiscount" class="btn btn-primary btn-sm"> Add More</span>
+            </div>
         </div>
+        <div class="form-group" id="cloneDiv"></div>
         <div class="form-group {{ $errors->has('total_fees') ? 'has-error' : ''}}">
             {!! Form::label('total_fees', 'Total Fees', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
@@ -461,7 +468,7 @@ $joinChances = [
 <div class="form-group">
     <div class="col-md-offset-4 col-md-6">
         {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Save', ['class' => 'btn btn-primary']) !!}
-        {!! Form::submit('Save And Proceed to Fees Receipt', ['class' => 'btn btn-primary','name'=>'feeBtn']) !!}
+        {{--{!! Form::submit('Save And Proceed to Fees Receipt', ['class' => 'btn btn-primary','name'=>'feeBtn']) !!}--}}
     </div>
 </div>
 

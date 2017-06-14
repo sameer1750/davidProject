@@ -52,6 +52,9 @@ class AdmissionController extends Controller
         if(isset($data['mother_name']) & !empty($data['mother_name'])){
             $admission = $admission->where('mother_name','LIKE','%'.$data['mother_name'].'%');
         }
+        if(isset($data['i_d_card']) & !empty($data['i_d_card'])){
+            $admission = $admission->where('i_d_card','LIKE','%'.$data['i_d_card'].'%');
+        }
         if(isset($data['caste']) & !empty($data['caste'])){
             $admission = $admission->where('caste','LIKE','%'.$data['caste'].'%');
         }

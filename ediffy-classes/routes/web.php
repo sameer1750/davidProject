@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('enquiry-source', 'EnquirySourceController');
     Route::resource('batch', 'BatchController');
     Route::resource('tax-type', 'TaxTypeController');
+    Route::resource('employee', 'EmployeeController');
+    Route::resource('designation', 'DesignationController');
+    Route::resource('salary-details', 'SalaryDetailsController');
     Route::get('quick-inquiry','EnquiryController@showQuick');
     Route::post('quick-inquiry','EnquiryController@saveQuick');
     Route::get('inquiry-list','EnquiryController@listDetail');
@@ -47,9 +50,12 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('get-batch-details','BatchController@batchDetails');
     Route::get('get-batch-by-module','BatchController@batchDetailsByModule');
     Route::get('get-fees-details','FeesController@getDetails');
+    Route::get('emp-salary-detail','EmployeeController@salaryDetail');
 });
 
 Auth::routes();
+
+
 
 
 

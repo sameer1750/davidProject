@@ -67,6 +67,10 @@
                     {!! Form::label('student_name', 'Student Name', ['class' => 'control-label']) !!}
                     {!! Form::text('student_name', request()->get('student_name'), ['class' => 'form-control']) !!}
                 </div>
+                <div class="form-group {{ $errors->has('i_d_card') ? 'has-error' : ''}}">
+                    {!! Form::label('i_d_card', 'ID Card', ['class' => 'control-label']) !!}
+                    {!! Form::text('i_d_card', request()->get('i_d_card'), ['class' => 'form-control']) !!}
+                </div>
                 <div class="form-group {{ $errors->has('admission_course') ? 'has-error' : ''}}">
                     {!! Form::label('admission_course', 'Admission Course', ['class' => 'control-label']) !!}
                     {!! Form::select('admission_course', $course, request()->get('admission_course'), ['class' => 'form-control','placeholder'=>'Select Course']) !!}
