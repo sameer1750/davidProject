@@ -2,22 +2,54 @@
 
 namespace App\Observers;
 
+use App\Models\ActivityLog;
+use App\Models\Course;
 use App\Models\Enquiry;
+use App\Models\EnquiryCourse;
 
 class EnquiryObserver
 {
     public function created(Enquiry $enquiry)
     {
+        $log ='Student Name : '.$enquiry->student_name.'. Mobile No: '.$enquiry->mobile_no;
+        $courseDetails = EnquiryCourse::where('enquiry_id',$enquiry->id)->pluck('course_id');
+        if(count($courseDetails)){
+            $courses = Course::whereIn('id',$courseDetails)->get();
+            $log .= ' Course : ';
+            foreach ($courses as $cs) {
+                $log .= ' '.$cs->name;
+            }
+        }
 
-    }
-
-    public function updated(Enquiry $enquiry)
-    {
-
+        ActivityLog::create([
+            'event_created_at'=>$enquiry->created_at,
+            'module'=>'ENQUIRY',
+            'action'=>'CREATE',
+            'user_id'=>$enquiry->enquiry_source,
+            'center_id'=>$enquiry->center_id,
+            'log_text'=>$log
+        ]);
     }
 
     public function deleted(Enquiry $enquiry)
     {
+        $log ='Student Name : '.$enquiry->student_name.'. Mobile No: '.$enquiry->mobile_no;
+        $courseDetails = EnquiryCourse::where('enquiry_id',$enquiry->id)->pluck('course_id');
+        if(count($courseDetails)){
+            $courses = Course::whereIn('id',$courseDetails)->get();
+            $log .= ' Course : ';
+            foreach ($courses as $cs) {
+                $log .= ' '.$cs->name;
+            }
+        }
 
+        ActivityLog::create([
+            'event_created_at'=>$enquiry->created_at,
+            'module'=>'ENQUIRY',
+            'action'=>'DELETE',
+            'user_id'=>$enquiry->enquiry_source,
+            'center_id'=>$enquiry->center_id,
+            'log_text'=>$log
+        ]);
     }
 }

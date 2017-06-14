@@ -34,6 +34,13 @@
                                 {!! $errors->first('mobile_no', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
+                        <div class="form-group {{ $errors->has('center_id') ? 'has-error' : ''}}">
+                            {!! Form::label('center_id', 'Center', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::select('center_id', $centers, null, ['class' => 'form-control']) !!}
+                                {!! $errors->first('center_id', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-offset-4 col-md-1">
                                 {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Save', ['class' => 'btn btn-primary']) !!}

@@ -240,7 +240,8 @@ class EnquiryController extends Controller
 
     public function showQuick()
     {
-        return view('enquiry.quick');
+        $centers = Center::pluck('name','id');
+        return view('enquiry.quick',compact('centers'));
     }
 
     public function saveQuick(Request $request)
