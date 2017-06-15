@@ -15,7 +15,7 @@ class ActivityLog extends Eloquent
      */
     protected $table = 'activity_logs';
 
-    protected $dates = ['birth_date','inquiry_date','enquiry_on'];
+    protected $dates = ['event_created_at'];
 
     protected $primaryKey = '_id';
 

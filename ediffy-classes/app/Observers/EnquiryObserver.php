@@ -31,7 +31,7 @@ class EnquiryObserver
         ]);
     }
 
-    public function deleted(Enquiry $enquiry)
+    public function deleting(Enquiry $enquiry)
     {
         $log ='Student Name : '.$enquiry->student_name.'. Mobile No: '.$enquiry->mobile_no;
         $courseDetails = EnquiryCourse::where('enquiry_id',$enquiry->id)->pluck('course_id');

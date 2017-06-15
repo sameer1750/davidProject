@@ -22,7 +22,11 @@
     </a>
 </li>
 
-
+<li class="treeview">
+    <a href="{{ url('/logs') }}">
+        <i class="fa fa-dashboard"></i> <span>Logs</span>
+    </a>
+</li>
 
 <li class="treeview">
     <a href="">
