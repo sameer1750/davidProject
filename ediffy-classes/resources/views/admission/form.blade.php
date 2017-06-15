@@ -471,4 +471,3 @@ $joinChances = [
         {{--{!! Form::submit('Save And Proceed to Fees Receipt', ['class' => 'btn btn-primary','name'=>'feeBtn']) !!}--}}
     </div>
 </div>
-

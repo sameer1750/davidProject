@@ -23,6 +23,18 @@
 </li>
 
 <li class="treeview">
+    <a href="{{ route('employee.index') }}">
+        <i class="fa fa-dashboard"></i> <span>Employee</span>
+    </a>
+</li>
+
+<li class="treeview">
+    <a href="{{ route('salary-details.index') }}">
+        <i class="fa fa-dashboard"></i> <span>Salary Detail</span>
+    </a>
+</li>
+
+<li class="treeview">
     <a href="{{ url('/logs') }}">
         <i class="fa fa-dashboard"></i> <span>Logs</span>
     </a>
@@ -44,6 +56,7 @@
         <li><a href="{{ route('enquiry-source.index')  }}"><i class="fa fa-flag"></i>Enquiry Source</a></li>
         <li><a href="{{ route('education.index')  }}"><i class="fa fa-flag"></i>Education</a></li>
         <li><a href="{{ route('area.index')  }}"><i class="fa fa-flag"></i>Area</a></li>
+        <li><a href="{{ route('designation.index')  }}"><i class="fa fa-flag"></i>Designation</a></li>
 
         <li><a href="{{ route('caste.index')  }}"><i class="fa fa-flag"></i>Caste</a></li>
 
