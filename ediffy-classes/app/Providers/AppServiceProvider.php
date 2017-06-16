@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Admission;
 use App\Models\Enquiry;
 use App\Models\AdmissionInstallment;
+use App\Observers\FeesObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\EnquiryObserver;
+use App\Observers\AdmissionObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Enquiry::observe(EnquiryObserver::class);
         AdmissionInstallment::observe(FeesObserver::class);
+        Admission::observe(AdmissionObserver::class);
     }
 
     /**

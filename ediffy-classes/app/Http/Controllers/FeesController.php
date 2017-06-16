@@ -17,17 +17,27 @@ use Session;
 
 class FeesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
         $fees = AdmissionInstallment::with('admission')
-            ->where('due_date','>=',Carbon::now())->orderBy('due_date')->paginate(25);
+            ->where('due_date','>=',Carbon::now())->orderBy('due_date');
+
+
+        if($request->paid)
+        {
+            $fees = $fees->where('paid',($request->paid == 'paid')?1:0);
+        }
+        $fees = $fees->paginate(25);
+
         return view('fees.index',compact('fees'));
     }
 
     public function create()
     {
         $taxType = TaxType::get();
-        $admission = Admission::orderBy('created_at','DESC')->get();
+        $admissionIds = AdmissionInstallment::where('paid',0)->pluck('admission_id')->unique();
+        $admission = Admission::whereIn('_id',$admissionIds)->orderBy('created_at','DESC')->get();
         return view('fees.create',compact('admission','taxType'));
     }
 
@@ -48,17 +58,30 @@ class FeesController extends Controller
 
         $ai = AdmissionInstallment::where('admission_id',$data['admission_id'])->where('paid',0)
             ->orderBy('due_date')->first();
-        $ai->paid = 1;
-        $ai->received_amount = $data['received_amount'];
-        $ai->account = $data['account'];
-        $ai->fees_recieved_by = auth()->user()->id;
-        $ai->cheque_date = $data['cheque_date'];
-        $ai->cheque_no = $data['cheque_no'];
-        $ai->bank_name = $data['bank_name'];
-        $ai->mode_of_payment = $data['mode_of_payment'];
-        $ai->tax_amount = $data['tax_amount'];
-        $ai->receipt_date = $data['receipt_date'];
-        $ai->save();
+        $updatedData = [
+            'paid'=>1,
+            'received_amount'=>$data['received_amount'],
+            'account'=>$data['account'],
+            'fees_recieved_by'=>auth()->user()->id,
+            'cheque_date'=>$data['cheque_date'],
+            'cheque_no'=>$data['cheque_no'],
+            'bank_name'=>$data['bank_name'],
+            'mode_of_payment'=>$data['mode_of_payment'],
+            'tax_amount'=>$data['tax_amount'],
+            'receipt_date'=>$data['receipt_date']
+        ];
+        $ai->update($updatedData);
+//        $ai->paid = 1;
+//        $ai->received_amount = $data['received_amount'];
+//        $ai->account = $data['account'];
+//        $ai->fees_recieved_by = auth()->user()->id;
+//        $ai->cheque_date = $data['cheque_date'];
+//        $ai->cheque_no = $data['cheque_no'];
+//        $ai->bank_name = $data['bank_name'];
+//        $ai->mode_of_payment = ;
+//        $ai->tax_amount = $data['tax_amount'];
+//        $ai->receipt_date = $data['receipt_date'];
+//        $ai->save();
 
         Session::flash('flash_message', 'Fees Received Successfully!');
 

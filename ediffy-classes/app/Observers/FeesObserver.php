@@ -11,15 +11,30 @@ use App\Models\Admission;
 
 class FeesObserver
 {
-    public function created(AdmissionInstallment $ae)
+//    public function created(AdmissionInstallment $ae)
+//    {
+//        $admission =  Admission::find($ae->admission_id);
+//        $log ='Student Name : '.$admission->student_name.'. Mobile No: '.$admission->mobile_no.' Amount Paid : '.$ae->received_amount;
+//
+//        ActivityLog::create([
+//            'event_created_at'=>$ae->created_at,
+//            'module'=>'FEES',
+//            'action'=>'CREATE',
+//            'user_id'=>$ae->fees_recieved_by,
+//            'center_id'=>$admission->center_id,
+//            'log_text'=>$log
+//        ]);
+//    }
+
+    public function updated(AdmissionInstallment $ae)
     {
         $admission =  Admission::find($ae->admission_id);
         $log ='Student Name : '.$admission->student_name.'. Mobile No: '.$admission->mobile_no.' Amount Paid : '.$ae->received_amount;
 
         ActivityLog::create([
-            'event_created_at'=>$enquiry->created_at,
+            'event_created_at'=>$ae->updated_at,
             'module'=>'FEES',
-            'action'=>'CREATE',
+            'action'=>'PAID',
             'user_id'=>$ae->fees_recieved_by,
             'center_id'=>$admission->center_id,
             'log_text'=>$log

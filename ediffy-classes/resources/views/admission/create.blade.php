@@ -1,6 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+    <style>
+        .dp{
+            width: 100px;
+        }
+        .shortT{
+            width: 100px;
+        }
+    </style>
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -38,6 +46,7 @@
         $(document).ready(function(){
             var courseData = [];
             var ttFees = 0;
+
             $('.datepicker').datepicker({
                 autoclose:true,
                 format:"yyyy-mm-dd",
@@ -323,8 +332,9 @@
                 }
             });
 
-            $('#no_of_installment').keyup(function(){
 
+            $('#no_of_installment').keyup(function(){
+                $('.delRow').remove();
                 var val = parseInt($(this).val());
                 var fees = parseFloat($('#total_fees_inc_tax').val()) - parseFloat($('#down_payment').val());
                 var eachInstallment = Math.floor(fees / val);
@@ -332,15 +342,21 @@
                 for(var i=1;i<=val;i++){
                     if(i == val){
                         eachInstallment = fees - te;
+                        eachInstallment = Math.round(eachInstallment);
                     }else{
                         te += eachInstallment;
                     }
-                    var html = ' <div class="row"> ' +
+                    var html = ' <div class="row delRow"> ' +
                             '<div class="col-md-2"><b>'+i+'</b></div> ' +
-                            '<div class="col-md-5"><b>'+moment().add(i,'months').format('YYYY-MMM-D')+'</b></div> ' +
-                            '<div class="col-md-5"><b>'+eachInstallment+'</b></div> ' +
+                            '<div class="col-md-5"><input name="insd[]" type="text" class="dp" value="'+moment().add(i,'months').format('YYYY-MM-D')+'"/></div> ' +
+                            '<div class="col-md-5"><input class="shortT" type="text" name="insa[]" value="'+eachInstallment+'"/></div> ' +
                             '</div>';
                     $('#installments').append(html);
+                    $('.dp').datepicker({
+                        autoclose:true,
+                        format:"yyyy-mm-dd",
+                    });
+
                 }
             });
 

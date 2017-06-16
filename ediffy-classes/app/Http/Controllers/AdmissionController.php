@@ -144,20 +144,15 @@ class AdmissionController extends Controller
 
         $requestData = $request->all();
         $installments = [];
-        $totalFees = floor(($requestData['total_fees_inc_tax'] - $requestData['down_payment']) / $requestData['no_of_installment']);
-        $tempFees = 0;
-        for ($i=1;$i<=$requestData['no_of_installment'];$i++) {
-            if($i == $requestData['no_of_installment']){
-                $totalFees  = $requestData['total_fees_inc_tax'] - $requestData['down_payment']  - $totalFees;
-            }else{
-                $tempFees += $totalFees;
-            }
+
+        foreach ($requestData['insd'] as $key=>$value) {
             $temp = [
-                'due_date'=>Carbon::now()->addMonths($i)->toDateTimeString(),
-                'amount'=>$totalFees
+                'due_date'=>Carbon::parse($value)->toDateTimeString(),
+                'amount'=>$requestData['insa'][$key]
             ];
             array_push($installments,$temp);
         }
+
 
         $center = Center::find($requestData['center_id']);
 
@@ -179,6 +174,7 @@ class AdmissionController extends Controller
         unset($requestData['course_module']);
         $cc = $requestData['course_completion'];
         unset($requestData['course_completion']);
+        $requestData['created_by'] = auth()->user()->id;
         $admission = Admission::create($requestData);
         foreach ($courseModules as $cm) {
             AdmissionCourse::create(['admission_id'=>$admission->id,'course_completion'=>$cc,'course_id'=>$cm['course_id'],'module_id'=>$cm['module_id'],'batch_id'=>$cm['batch_id']]);

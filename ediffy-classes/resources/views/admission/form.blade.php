@@ -467,7 +467,7 @@ $joinChances = [
 </div>
 <div class="form-group">
     <div class="col-md-offset-4 col-md-6">
-        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Save', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Save', ['class' => 'btn btn-primary','id'=>'btnSave']) !!}
         {{--{!! Form::submit('Save And Proceed to Fees Receipt', ['class' => 'btn btn-primary','name'=>'feeBtn']) !!}--}}
     </div>
 </div>
