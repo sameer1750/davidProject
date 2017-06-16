@@ -273,11 +273,11 @@
             {!! Form::label('discount', 'Discount', ['class' => 'col-md-4 control-label']) !!}
             <span id="dDiv">
             <div class="col-md-2">
-                {!! Form::input('number','discount', null, ['class' => 'form-control']) !!}
+                {!! Form::input('number','discount[]', null, ['class' => 'form-control']) !!}
                 {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
             </div>
             <div class="col-md-2">
-                {!! Form::select('discount_type',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control','id'=>'discount_type']) !!}
+                {!! Form::select('discount_type[]',['PERCENT'=>'PERCENT','RUPEES'=>'RUPEES'], null, ['class' => 'form-control','id'=>'discount_type']) !!}
                 {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
             </div>
             </span>

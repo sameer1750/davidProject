@@ -23,15 +23,28 @@
 </li>
 
 <li class="treeview">
-    <a href="{{ route('employee.index') }}">
-        <i class="fa fa-dashboard"></i> <span>Employee</span>
+    <a href="#">
+        <i class="fa fa-share"></i> <span>Employee</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
     </a>
+    <ul class="treeview-menu" style="display: none;">
+        <li>
+            <a href="{{ route('employee.index') }}">
+                <i class="fa fa-flag"></i> <span>View</span>
+            </a> <a href="{{ route('salary-details.index') }}">
+                <i class="fa fa-dashboard"></i> <span>Salary Detail</span>
+            </a>
+        </li>
+
+    </ul>
 </li>
 
+
+
 <li class="treeview">
-    <a href="{{ route('salary-details.index') }}">
-        <i class="fa fa-dashboard"></i> <span>Salary Detail</span>
-    </a>
+
 </li>
 
 <li class="treeview">
@@ -63,17 +76,7 @@
         @if(auth()->user()->type_id == 1)
             <li><a href="{{ route('admin.index')  }}"><i class="fa fa-flag"></i>Sub Admins</a></li>
         @endif
-        {{--<li class="treeview">--}}
-            {{--<a href="#">--}}
-                {{--<i class="fa fa-share"></i> <span>Institute Details</span>--}}
-            {{--<span class="pull-right-container">--}}
-              {{--<i class="fa fa-angle-left pull-right"></i>--}}
-            {{--</span>--}}
-            {{--</a>--}}
-            {{--<ul class="treeview-menu" style="display: none;">--}}
-                {{--<li><a href=""><i class="fa fa-flag"></i>Show</a></li>--}}
-            {{--</ul>--}}
-        {{--</li>--}}
+
         </li>
     </ul>
 </li>

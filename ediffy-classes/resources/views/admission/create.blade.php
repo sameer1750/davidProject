@@ -96,6 +96,11 @@
 
             $('.generalSelect2').select2();
 
+            $('#course_name').change(function(){
+                console.log($(this).nextAll('input'))
+                $(this).next('input:text').val('');
+            })
+
             $('body').on('click','#addCourse',function(){
                 var course_id = $('#course_name').val();
                 var batch_id = $('#preferred_batch').find('option:selected').val();
@@ -417,9 +422,9 @@
 
             $('#addDiscount').click(function(){
                 $('#cloneDiv').append('<div class="col-md-offset-4 col-md-2"> ' +
-                        '<input class="form-control" name="discount" type="number" id="discount"> ' +
+                        '<input class="form-control" name="discount[]" type="number" id="discount"> ' +
                         '</div> <div class="col-md-2"> ' +
-                        '<select class="form-control" id="discount_type" name="discount_type"><option value="PERCENT">PERCENT</option><option value="RUPEES">RUPEES</option></select> ' +
+                        '<select class="form-control" id="discount_type" name="discount_type[]"><option value="PERCENT">PERCENT</option><option value="RUPEES">RUPEES</option></select> ' +
                         '</div>')
             });
         });
