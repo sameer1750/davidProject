@@ -27,7 +27,7 @@ class AdmissionObserver
             'event_created_at'=>$adm->created_at,
             'module'=>'ADMISSION',
             'action'=>'CREATE',
-            'user_id'=>$adm->created_by,
+            'user_id'=>auth()->user()->id,
             'center_id'=>$adm->center_id,
             'log_text'=>$log
         ]);
@@ -49,7 +49,7 @@ class AdmissionObserver
             'event_created_at'=>$adm->created_at,
             'module'=>'ADMISSION',
             'action'=>'DELETE',
-            'user_id'=>$adm->created_by,
+            'user_id'=>auth()->user()->id,
             'center_id'=>$adm->center_id,
             'log_text'=>$log
         ]);

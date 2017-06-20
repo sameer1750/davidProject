@@ -25,7 +25,7 @@ class EnquiryObserver
             'event_created_at'=>$enquiry->created_at,
             'module'=>'ENQUIRY',
             'action'=>'CREATE',
-            'user_id'=>$enquiry->enquiry_source,
+            'user_id'=>auth()->user()->id,
             'center_id'=>$enquiry->center_id,
             'log_text'=>$log
         ]);
@@ -47,7 +47,7 @@ class EnquiryObserver
             'event_created_at'=>$enquiry->created_at,
             'module'=>'ENQUIRY',
             'action'=>'DELETE',
-            'user_id'=>$enquiry->enquiry_source,
+            'user_id'=>auth()->user()->id,
             'center_id'=>$enquiry->center_id,
             'log_text'=>$log
         ]);

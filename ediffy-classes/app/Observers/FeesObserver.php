@@ -35,7 +35,7 @@ class FeesObserver
             'event_created_at'=>$ae->updated_at,
             'module'=>'FEES',
             'action'=>'PAID',
-            'user_id'=>$ae->fees_recieved_by,
+            'user_id'=>auth()->user()->id,
             'center_id'=>$admission->center_id,
             'log_text'=>$log
         ]);
