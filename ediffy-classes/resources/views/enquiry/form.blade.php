@@ -15,33 +15,33 @@
         <div class="form-group {{ $errors->has('student_name') ? 'has-error' : ''}}">
             {!! Form::label('student_name', 'Student Name ', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('student_name', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('student_name', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('student_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('father_name') ? 'has-error' : ''}}">
             {!! Form::label('father_name', 'Father Name', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('father_name', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('father_name', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('father_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('mother_name') ? 'has-error' : ''}}">
             {!! Form::label('mother_name', 'Mother Name', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('mother_name', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('mother_name', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('mother_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('caste') ? 'has-error' : ''}}">
             {!! Form::label('caste', 'Caste', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('caste', $caste, null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::select('caste', $caste, null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('caste', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('birth_date') ? 'has-error' : ''}}">
             {!! Form::label('birth_date', 'Birth Date', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('birth_date', null, ['class' => 'form-control datepicker','required'=>true]) !!}
+                {!! Form::text('birth_date', null, ['class' => 'form-control datepicker','data-validation'=>'required']) !!}
                 {!! $errors->first('birth_date', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="form-group {{ $errors->has('gender') ? 'has-error' : ''}}">
             {!! Form::label('gender', 'Gender', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('gender', $gender, null, ['class' => 'form-control']) !!}
+                {!! Form::select('gender', $gender, null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('gender', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -67,13 +67,13 @@
         <div class="form-group {{ $errors->has('marital_status') ? 'has-error' : ''}}">
             {!! Form::label('marital_status', 'Marital Status', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('marital_status', $maritalStatus, null, ['class' => 'form-control']) !!}
+                {!! Form::select('marital_status', $maritalStatus, null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('marital_status', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('aadhaar_card_no') ? 'has-error' : ''}}">
             {!! Form::label('aadhaar_card_no', 'Aadhaar Card No', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('aadhaar_card_no', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('aadhaar_card_no', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('aadhaar_card_no', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="form-group {{ $errors->has('res_address') ? 'has-error' : ''}}">
             {!! Form::label('res_address', 'Res. Address', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::textarea('res_address', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::textarea('res_address', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('res_address', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('telephone_r') ? 'has-error' : ''}}">
@@ -103,19 +103,19 @@
         </div><div class="form-group {{ $errors->has('zip_code') ? 'has-error' : ''}}">
             {!! Form::label('zip_code', 'Zip Code', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('zip_code', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('zip_code', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('zip_code', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
             {!! Form::label('email', 'Email', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('email', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('email', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('mobile_no') ? 'has-error' : ''}}">
             {!! Form::label('mobile_no', 'Mobile No', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('mobile_no', null, ['class' => 'form-control','required'=>true]) !!}
+                {!! Form::text('mobile_no', null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('mobile_no', '<p class="help-block">:message</p>') !!}
             </div>
         </div><div class="form-group {{ $errors->has('area') ? 'has-error' : ''}}">
@@ -155,21 +155,21 @@
         <div class="form-group {{ $errors->has('inquiry_date') ? 'has-error' : ''}}">
             {!! Form::label('inquiry_date', 'Inquiry Date', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('inquiry_date', null, ['class' => 'form-control datepicker']) !!}
+                {!! Form::text('inquiry_date', null, ['class' => 'form-control datepicker','data-validation'=>'date']) !!}
                 {!! $errors->first('inquiry_date', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('course_name') ? 'has-error' : ''}}">
             {!! Form::label('course_name', 'Course Name', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('course_name', $courseName, null, ['class' => 'form-control','placeholder'=>'Select Course']) !!}
+                {!! Form::select('course_name', $courseName, null, ['class' => 'form-control','placeholder'=>'Select Course','data-validation'=>'required']) !!}
                 {!! $errors->first('course_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('center_id') ? 'has-error' : ''}}">
             {!! Form::label('center_id', 'Center', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('center_id', $center,  null, ['class' => 'form-control']) !!}
+                {!! Form::select('center_id', $center,  null, ['class' => 'form-control','data-validation'=>'required']) !!}
                 {!! $errors->first('center_id', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -177,7 +177,7 @@
         <div class="form-group {{ $errors->has('course_completion') ? 'has-error' : ''}}">
             {!! Form::label('course_completion', 'Course Completion Date', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::text('course_completion', null, ['class' => 'form-control','id'=>'completionDate']) !!}
+                {!! Form::text('course_completion', null, ['class' => 'form-control','id'=>'completionDate','data-validation'=>'required']) !!}
                 {!! $errors->first('course_completion', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
@@ -194,7 +194,7 @@
         <div class="form-group {{ $errors->has('preferred_batch') ? 'has-error' : ''}}">
             {!! Form::label('preferred_batch', 'Preferred Batch', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
-                {!! Form::select('preferred_batch', $batch,null, ['class' => 'form-control','placeholder'=>'Select Batch']) !!}
+                {!! Form::select('preferred_batch', $batch,null, ['class' => 'form-control','placeholder'=>'Select Batch','data-validation'=>'required']) !!}
                 {!! $errors->first('preferred_batch', '<p class="help-block">:message</p>') !!}
                 <div id="se_avail"></div>
             </div>
@@ -244,7 +244,7 @@
 <div class="form-group {{ $errors->has('total_fees') ? 'has-error' : ''}}">
     {!! Form::label('total_fees', 'Total Fees', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('total_fees', 0, ['class' => 'form-control','disabled'=>'disabled']) !!}
+        {!! Form::text('total_fees', 0, ['class' => 'form-control','readonly'=>'readonly']) !!}
         {!! $errors->first('total_fees', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -253,13 +253,13 @@
 <div class="form-group {{ $errors->has('enquiry_source') ? 'has-error' : ''}}">
     {!! Form::label('enquiry_source', 'Enquiry Source', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::select('enquiry_source', $enquirySource, null, ['class' => 'form-control']) !!}
+        {!! Form::select('enquiry_source', $enquirySource, null, ['class' => 'form-control','data-validation'=>'required']) !!}
         {!! $errors->first('enquiry_source', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('enquiry_taken_by') ? 'has-error' : ''}}">
     {!! Form::label('enquiry_taken_by', 'Enquiry Taken By', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('enquiry_taken_by', auth()->user()->first_name.' '.auth()->user()->last_name, ['class' => 'form-control','disabled'=>'disabled']) !!}
+        {!! Form::text('enquiry_taken_by', auth()->user()->first_name.' '.auth()->user()->last_name, ['class' => 'form-control','readonly'=>'readonly']) !!}
         {!! $errors->first('enquiry_taken_by', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('remarks') ? 'has-error' : ''}}">

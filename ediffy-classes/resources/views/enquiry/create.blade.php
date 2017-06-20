@@ -35,6 +35,8 @@
     <script>
         $(document).ready(function(){
 
+            $.validate();
+
             var courseData = [];
 
             $('.datepicker').datepicker({

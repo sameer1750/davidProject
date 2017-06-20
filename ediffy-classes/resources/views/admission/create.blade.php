@@ -44,8 +44,12 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
+            $.validate({
+                modules : 'file'
+            });
+
             var courseData = [];
-            var ttFees = 0;
+            var ttFees = 55;        // TODO::change
 
             $('.datepicker').datepicker({
                 autoclose:true,
@@ -97,7 +101,11 @@
             $('.generalSelect2').select2();
 
             $('#course_name').change(function(){
-                console.log($(this).nextAll('input'))
+                var courseData = [];
+                //TODO
+                $('#course_name').find(':input').each(function(){
+                    alert(1)
+                })
                 $(this).next('input:text').val('');
             })
 
@@ -318,25 +326,34 @@
                     $('#tax_amt').val(0)
                 }
             });
-
-            $('body').on('keyup','#discount',function(){
-                var disType = $(this).parent().next('div').children('select').find(':selected').val();
-                var val = parseInt($(this).val());
-                if(isNaN(val) || val == 0){
-                    $('#total_fees').val(ttFees);
-                }else{
-                    if(disType == 'PERCENT'){
-                        var discount = (ttFees * val) / 100;
-                        $('#total_fees').val(ttFees-discount);
-                        $('#total_fees_inc_tax').val(ttFees-discount);
+            function calculateDiscount(){
+                var newTempFees = 0;
+                $('input[name="discount[]"]').map(function(){
+                    var disType = $(this).parent().next('div').children('select').find(':selected').val();
+                    var val = parseInt($(this).val());
+                    if(isNaN(val) || val == 0 ){
+                        //TODO
                     }else{
-                        var discount = ttFees - val;
-                        $('#total_fees').val(discount);
-                        $('#total_fees_inc_tax').val(discount);
+                        if(disType == 'PERCENT'){
+                            var discount = (ttFees * val) / 100;
+                            newTempFees += discount;
+                        }else{
+                            newTempFees += val;
+                        }
                     }
-                }
+
+                }).get();
+                $('#total_fees').val(ttFees-newTempFees);
+                $('#total_fees_inc_tax').val(ttFees-newTempFees);
+            }
+
+            $('body').on('keyup','input[name="discount[]"]',function(){
+                calculateDiscount();
             });
 
+            $('body').on('change','#discount_type',function(){
+                calculateDiscount();
+            });
 
             $('#no_of_installment').keyup(function(){
                 $('.delRow').remove();

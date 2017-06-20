@@ -41,6 +41,30 @@
     </ul>
 </li>
 
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-share"></i> <span>Accounting</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+    </a>
+    <ul class="treeview-menu" style="display: none;">
+        <li>
+            <a href="{{ route('account-group.create') }}">
+                <i class="fa fa-flag"></i> <span>Account Group</span>
+            </a>
+            <a href="{{ route('account-sub-group.create') }}">
+                <i class="fa fa-dashboard"></i> <span>Account Sub Group</span>
+            </a>
+            <a href="{{ route('account.create') }}">
+                <i class="fa fa-dashboard"></i> <span>Account</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+
 
 
 <li class="treeview">

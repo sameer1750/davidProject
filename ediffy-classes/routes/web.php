@@ -55,3 +55,7 @@ Route::group(['middleware' => 'auth'],function(){
 });
 
 Auth::routes();
+
+Route::resource('account-group', 'AccountGroupController');
+Route::resource('account-sub-group', 'AccountSubGroupController');
+Route::resource('account', 'AccountController');
