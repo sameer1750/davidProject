@@ -48,7 +48,7 @@ class Enquiry extends Eloquent
 
     public function course()
     {
-        return $this->hasOne('App\Models\Course','id','course_id');
+        return $this->hasMany('App\Models\Course','id','course_id');
 
     }
 

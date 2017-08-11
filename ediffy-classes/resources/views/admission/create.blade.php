@@ -101,10 +101,10 @@
             $('.generalSelect2').select2();
 
             $('#course_name').change(function(){
-                var courseData = [];
+//                var courseData = [];
                 //TODO
                 $('#course_name').find(':input').each(function(){
-                    alert(1)
+//                    alert(1)
                 })
                 $(this).next('input:text').val('');
             })
@@ -253,6 +253,7 @@
                 }
 
             });
+
             $('form').submit(function(e){
                 $('<input />').attr('type', 'hidden')
                         .attr('name', "selected_course")
@@ -263,7 +264,7 @@
 
             function checkAndAdd(arr,courseId) {
                 var found = arr.some(function (el) {
-                    return el.course_id === courseId;
+                    return el.course_id == courseId;
                 });
                 return found;
             }
@@ -326,6 +327,7 @@
                     $('#tax_amt').val(0)
                 }
             });
+
             function calculateDiscount(){
                 var newTempFees = 0;
                 $('input[name="discount[]"]').map(function(){
@@ -431,7 +433,23 @@
                         $.each(resp,function(key,val){
                             $('#'+key).val(val);
                         });
-                        $('#myModal').modal('toggle')
+                        $('#total_fees_inc_tax').val(resp.total_fees)
+                        if(resp.course_details.length != undefined){
+                            $.each(resp.course_details,function(key,val){
+                                var tempObj = {};
+                                tempObj['module_id'] = val.module.id;
+                                tempObj['course_id'] = val.course.id;
+                                tempObj['batch_id'] = val.batch.id;
+                                courseData.push(tempObj);
+
+                                var html = '<div class="row"><div class="col-md-3">'+val.course.name+'</div>' +
+                                        '<div class="col-md-3">'+val.module.name+'</div><div class="col-md-2">'+val.course.default_fees+'</div><div class="col-md-2">'+val.batch.full_start_time+'-'+val.batch.full_end_time+'</div>' +
+                                        '<div class="col-md-2"><span onclick="removeC()" data-fees="'+val.course.default_fees+'" data-course-id="'+val.course.id+'" data-module-id="'+val.module.id+'" class="btn btn-danger btn-xs">rem</span></div></div>';
+                                $('#cms').append(html);
+                            });
+
+                        }
+                        $('#myModal').modal('toggle');
                     }
                 });
             });

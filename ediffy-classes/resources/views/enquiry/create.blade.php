@@ -184,7 +184,7 @@
             }
 
             $('#m_enquiry_date').click(function(){
-                alert(1)
+//                alert(1)
             })
         });
     </script>

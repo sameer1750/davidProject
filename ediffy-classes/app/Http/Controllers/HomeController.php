@@ -6,7 +6,12 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Admission;
+use App\Models\Batch;
+use App\Models\Course;
+use App\Models\CourseModule;
+use App\Models\CourseToModule;
 use App\Models\Enquiry;
+use App\Models\EnquiryCourse;
 use Illuminate\Http\Request;
 use Session;
 
@@ -38,7 +43,23 @@ class HomeController extends Controller
 
     public function getStudent(Request $request){
         $id = $request->val;
-        return Enquiry::find($id);
+        $cdetails = [];
+        $courseIds = EnquiryCourse::where('enquiry_id',$id)->get();
+        foreach ($courseIds as $ci) {
+            $course = Course::find($ci->course_id);
+            $batch = Batch::find($ci->batch_id);
+            $module = CourseModule::find($ci->module_id);
+            $temp = [
+                'course'=>$course,
+                'batch'=>$batch,
+                'module'=>$module
+            ];
+            array_push($cdetails,$temp);
+        }
+
+        $enq = Enquiry::find($id)->toArray();
+        $enq['course_details'] = $cdetails;
+        return $enq;
     }
 
     public function dashboard(){

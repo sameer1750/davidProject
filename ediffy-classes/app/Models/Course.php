@@ -15,6 +15,7 @@ class Course extends Model
     protected $table = 'courses';
     protected $dates = ['start_date'];
     protected $appends = ['course_completion'];
+    protected $connection = 'mysql';
     /**
     * The database primary key value.
     *
