@@ -47,7 +47,46 @@
                         }, {
                             "title": "Preferences",
                             "description": "Customize your Profile"
-                        }]
+                        }],
+                        "buttons": {
+                          "first": {
+                              "title": "Go to First Page",
+                              "align": "left",
+                              "click": function(e) {
+                                  this.trigger("moveToStep", {
+                                      "index": 0,
+                                      "skipValidation": true
+                                  });
+                              }
+                          },
+                          "previous": {
+                              "validate": function(callback) {
+                                  console.log("Previous validate()");
+                                  callback(true);
+                              }
+                          },
+                          "next": {
+                              "validate": function(callback) {
+                                  console.log("Next validate()");
+                                  console.log(JSON.stringify(this.getValue(), null, "  "));
+                                  callback(true);
+                              }
+                          },
+                          "submit": {
+                              "title": "All Done!",
+                              "validate": function(callback) {
+                                  console.log("Submit validate()");
+                                  callback(true);
+                              },
+                              "click": function(e) {
+                                  alert(JSON.stringify(this.getValue(), null, "  "));
+                              },
+                              "id": "mySubmit",
+                              "attributes": {
+                                  "data-test": "123"
+                              }
+                          }
+                      }
                     }
                 }
             });
