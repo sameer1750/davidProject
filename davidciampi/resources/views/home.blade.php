@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Form</div>
                 <div class="panel-body">
                     <div id="form"></div>
                 </div>
@@ -21,6 +21,7 @@
     <script type="text/javascript" id="field1-script">
         $(document).ready(function(){
             $("#form").alpaca({
+
                 "dataSource": "/fetch-data?user_id="+{{auth()->user()->id}},
                 "schemaSource": "/data/customer-profile-schema.json",
                 "optionsSource": "/data/customer-profile-options.json",
@@ -68,6 +69,7 @@
                           },
                           "next": {
                               "validate": function(callback) {
+                                console.log(this);
                                   $.ajax({
                                       type:"GET",
                                       url:"/user/save-data",
@@ -87,7 +89,8 @@
                                       type:"GET",
                                       url:"/user/save-data",
                                       data:this.getValue()
-                                  })
+                                  });
+                                  toastr.success('Success!', 'Your Data has been Saved')
                               },
                               "id": "mySubmit",
                               "attributes": {
@@ -95,10 +98,16 @@
                               }
                           }
                       }
-                    }
+                    },
+
                 }
             });
 
         })
+        $("#form").fileupload({
+  // Uncomment the following to send cross-domain cookies:
+  //xhrFields: {withCredentials: true},
+  url: 'https://upload.uploadcare.com/submit'
+});
     </script>
 @endsection
