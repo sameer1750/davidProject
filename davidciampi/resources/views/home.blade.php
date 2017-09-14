@@ -17,10 +17,11 @@
 
 @endsection
 @section('scripts')
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" id="field1-script">
         $(document).ready(function(){
             $("#form").alpaca({
-                "dataSource": "/data/customer-profile-data.json",
+                "dataSource": "/fetch-data?user_id="+{{auth()->user()->id}},
                 "schemaSource": "/data/customer-profile-schema.json",
                 "optionsSource": "/data/customer-profile-options.json",
                 "view": {
@@ -67,8 +68,11 @@
                           },
                           "next": {
                               "validate": function(callback) {
-                                  console.log("Next validate()");
-                                  console.log(JSON.stringify(this.getValue(), null, "  "));
+                                  $.ajax({
+                                      type:"GET",
+                                      url:"/user/save-data",
+                                      data:this.getValue()
+                                  })
                                   callback(true);
                               }
                           },
@@ -79,7 +83,11 @@
                                   callback(true);
                               },
                               "click": function(e) {
-                                  alert(JSON.stringify(this.getValue(), null, "  "));
+                                  $.ajax({
+                                      type:"GET",
+                                      url:"/user/save-data",
+                                      data:this.getValue()
+                                  })
                               },
                               "id": "mySubmit",
                               "attributes": {
