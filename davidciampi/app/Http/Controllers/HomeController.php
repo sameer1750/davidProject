@@ -72,4 +72,14 @@ class HomeController extends Controller
           return \File::get(public_path().'/data/customer-profile-data.json');
         }
     }
+
+    public function uploadImage(Request $request)
+    {
+      $file = $request->file;
+      $path = $file->storeAs(
+          'avatars', $request->user()->id
+      );
+      dd($path);
+      dd($file);
+    }
 }

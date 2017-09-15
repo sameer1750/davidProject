@@ -10,7 +10,8 @@
     <script type='text/javascript' src="https://code.jquery.com/jquery-2.0.0.min.js"></script>
     <script type='text/javascript' src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-    <script type='text/javascript' src="https://code.cloudcms.com/alpaca/1.5.17/bootstrap/alpaca.min.js"></script>
+    <script type='text/javascript' src="http://code.cloudcms.com/alpaca/1.5.23/bootstrap/alpaca.min.js
+"></script>
     <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type='text/javascript' src="/js/jquery.ui.widget.js"></script>
     <script type='text/javascript' src="/js/jquery.iframe-transport.js"></script>
@@ -20,7 +21,7 @@
     <script type='text/javascript' src="/js/jquery.fileupload-ui.js"></script>
 
 
-    <link rel="stylesheet" href="http://code.cloudcms.com/alpaca/1.5.2/bootstrap/alpaca.min.css"/>
+    <link rel="stylesheet" href="http://code.cloudcms.com/alpaca/1.5.23/bootstrap/alpaca.min.css"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 

@@ -69,7 +69,8 @@
                           },
                           "next": {
                               "validate": function(callback) {
-                                console.log(this);
+
+                                console.log($('#alpaca6').val());
                                   $.ajax({
                                       type:"GET",
                                       url:"/user/save-data",
@@ -99,15 +100,22 @@
                           }
                       }
                     },
-
                 }
             });
-
+            $(document).on('change',':file',function(){
+              var formData = new FormData();
+              formData.append('file', $(this)[0].files[0]);
+              console.log(formData);
+              $.ajax({
+                url: '/upload-image',
+                type: 'post',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+              });
+            });
         })
-        $("#form").fileupload({
-  // Uncomment the following to send cross-domain cookies:
-  //xhrFields: {withCredentials: true},
-  url: 'https://upload.uploadcare.com/submit'
-});
+
     </script>
 @endsection
